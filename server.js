@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
-app.use(express.static('docs'));
+app.use(express.static('public'));
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch((err) => console.error('MongoDB connection error:', err));
 
 // Routes
-const tripsRouter = require('./docs/routes/trips');
+const tripsRouter = require('./public/routes/trips');
 app.use('/api/trips', tripsRouter);
 
 app.listen(PORT, () => {
