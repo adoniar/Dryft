@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch((err) => console.error('MongoDB connection error:', err));
 
 // Routes
-const tripsRouter = require('./public/routes/trips');
+const tripsRouter = require('./docs/routes/trips');
 app.use('/api/trips', tripsRouter);
 
 app.listen(PORT, () => {
