@@ -75,7 +75,7 @@ document.querySelectorAll('.account-button').forEach(button => {
     });
 });
 
-// Add to the existing script.js
+// Add to your existing script.js
 function toggleLike(button) {
     const heartIcon = button.querySelector('i');
     const likeCount = button.querySelector('.like-count');
@@ -152,4 +152,3 @@ function toggleLike(button) {
         button.classList.remove('liked');
     }
 }
-
