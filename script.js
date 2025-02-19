@@ -75,7 +75,7 @@ document.querySelectorAll('.account-button').forEach(button => {
     });
 });
 
-// Add to your existing script.js
+// Add to the existing script.js
 function toggleLike(button) {
     const heartIcon = button.querySelector('i');
     const likeCount = button.querySelector('.like-count');
@@ -98,6 +98,13 @@ function showPage(pageId) {
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active-page');
     });
+
+    // Hide the navigation for login and signup pages
+    if (pageId === 'login' || pageId === 'signup') {
+        document.querySelector('.navbar').style.display = 'none';
+    } else {
+        document.querySelector('.navbar').style.display = 'block';
+    }
 
     // Show requested page
     document.getElementById(pageId).classList.add('active-page');
