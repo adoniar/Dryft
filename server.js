@@ -1,28 +1,14 @@
-require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
+const path = require('path');
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(express.json());
-app.use(express.static('public'));
+// Serve static files (like images, CSS, JS) from the root
+app.use(express.static(__dirname));
 
-console.log("MONGO_URI:", process.env.MONGO_URI);
-
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch((err) => console.error('MongoDB connection error:', err));
-
-// Routes
-const tripsRouter = require('./routes/trips');
-app.use('/api/trips', tripsRouter);
-
-app.listen(PORT, () => {
-    console.log(`Dryft Server Side Running...`);
-    console.log(`Server running at http://localhost:${PORT}`);
+// Route to serve index.html directly from the root
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
