@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.static('public'));
 
+console.log("MONGO_URI:", process.env.MONGO_URI);
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
