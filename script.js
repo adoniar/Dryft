@@ -99,13 +99,6 @@ function showPage(pageId) {
         page.classList.remove('active-page');
     });
 
-    // Hide the navigation for login and signup pages
-    if (pageId === 'login' || pageId === 'signup') {
-        document.querySelector('.navbar').style.display = 'none';
-    } else {
-        document.querySelector('.navbar').style.display = 'block';
-    }
-
     // Show requested page
     document.getElementById(pageId).classList.add('active-page');
 }
