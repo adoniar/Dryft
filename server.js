@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 dotenv.config();
 
@@ -45,9 +46,12 @@ const Payment = mongoose.model("Payment", new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 }));
 
+// Serve static files from root directory
+app.use(express.static(path.join(__dirname)));
+
 // Routes
 app.get('/', (req, res) => {
-  res.send('API is running...');
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/favicon.ico', (req, res) => res.status(204).end());
