@@ -50,6 +50,8 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 app.post('/api/auth/register', async (req, res) => {
   try {
     const { name, email, password, preferences } = req.body;
