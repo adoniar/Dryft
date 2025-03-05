@@ -13,12 +13,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("🚀 Connected to MongoDB"))
-  .catch(err => console.log("❌ MongoDB Connection Error:", err));
+  .catch(err => console.error("❌ MongoDB Connection Error:", err));
 
 // Models
 const User = mongoose.model("User", new mongoose.Schema({
@@ -49,6 +46,10 @@ const Payment = mongoose.model("Payment", new mongoose.Schema({
 }));
 
 // Routes
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
+
 app.post('/api/auth/register', async (req, res) => {
   try {
     const { name, email, password, preferences } = req.body;
