@@ -95,18 +95,18 @@ app.post('/api/trips/book', async (req, res) => {
   }
 });
 
-app.post('/api/payments', async (req, res) => {
-  try {
-    const { userId, amount, paymentMethod } = req.body;
-    const payment = new Payment({
-      userId, amount, paymentMethod, status: "success", transactionDate: new Date(),
-    });
-    await payment.save();
-    res.json({ message: "Payment processed successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Error processing payment" });
-  }
-});
+// app.post('/api/payments', async (req, res) => {
+//   try {
+//     const { userId, amount, paymentMethod } = req.body;
+//     const payment = new Payment({
+//       userId, amount, paymentMethod, status: "success", transactionDate: new Date(),
+//     });
+//     await payment.save();
+//     res.json({ message: "Payment processed successfully" });
+//   } catch (error) {
+//     res.status(500).json({ error: "Error processing payment" });
+//   }
+// });
 
 // Start Server
 const PORT = process.env.PORT || 5000;
