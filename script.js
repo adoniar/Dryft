@@ -24,31 +24,23 @@ function showPage(pageId) {
     }
 }
 
-// Initialize with landing page
+// Initialize with landing page and attach event listeners to "Get Started" buttons
 document.addEventListener("DOMContentLoaded", () => {
     showPage("landing");
 
-    // Get the "Get Started" buttons on the landing page
-    const getStartedBusinessButton = document.querySelector('#landing .get-started-business');
-    const getStartedCustomerButton = document.querySelector('#landing .get-started-customer');
+    const getStartedButtons = document.querySelectorAll('#landing .landing-button');
 
-    // Event listener for "Get Started Business"
-    if (getStartedBusinessButton) {
-        getStartedBusinessButton.addEventListener('click', () => {
-            showPage('signup'); // Take the user to the signup page
-        });
-    } else {
-        console.warn("Warning: 'Get Started Business' button not found on the landing page.");
-    }
-
-    // Event listener for "Get Started Customer"
-    if (getStartedCustomerButton) {
-        getStartedCustomerButton.addEventListener('click', () => {
-            showPage('customerOriginal'); // Take the user directly to the customer page
-        });
-    } else {
-        console.warn("Warning: 'Get Started Customer' button not found on the landing page.");
-    }
+    getStartedButtons.forEach(button => {
+        if (button.textContent.trim() === 'GET STARTED') {
+            button.addEventListener('click', () => {
+                showPage('signup'); // Go to signup page
+            });
+        } else if (button.textContent.trim() === 'LOG IN') {
+            button.addEventListener('click', () => {
+                showPage('login'); // Go to login page
+            });
+        }
+    });
 });
 
 // Go Back function to handle "back-button" logic
@@ -61,7 +53,6 @@ function goBack() {
         case "signup":
             previousPage = "landing";
             break;
-        case "customerOriginal": // Go back from customer page to landing
         case "home":
             previousPage = "landing";
             break;
@@ -87,15 +78,18 @@ function goBack() {
         case "businessProfile": // Go back from business profile to signup
             previousPage = "signup";
             break;
+        case "customerOriginal": // If you had a separate customer page after login
+            previousPage = "landing"; // Or perhaps 'home' depending on your flow
+            break;
     }
     showPage(previousPage);
 }
 
 // Toggle "active" class on account type buttons (for signup page)
-document.querySelectorAll(".account-button").forEach((button) => {
+document.querySelectorAll("#signup .account-button").forEach((button) => {
     button.addEventListener("click", function () {
         document
-            .querySelectorAll(".account-button")
+            .querySelectorAll("#signup .account-button")
             .forEach((btn) => btn.classList.remove("active"));
         this.classList.add("active");
     });
@@ -113,8 +107,7 @@ document.getElementById("signupConfirmButton").addEventListener("click", functio
     if (role === "BUSINESS") {
         showPage("businessProfile"); // Redirect to business page
     } else if (role === "CUSTOMER") {
-        // Assuming 'home' was a placeholder for your main customer page
-        showPage("customerOriginal"); // Show the original customer page
+        showPage("home"); // Redirect to the main customer page (adjust if needed)
     }
 });
 
