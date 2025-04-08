@@ -356,7 +356,9 @@
       </div>
     </div>
 
-    <!-- Business Profile Page -->
+     <!-- ===================== -->
+    <!-- Business Page -->
+    <!-- ===================== -->
     <div id="businessProfile" class="page">
       <button class="back-button" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
@@ -384,103 +386,92 @@
                   <div class="ranking-number">100</div>
               </div>
           </div>
-          <div class="right-column"></div>
+          <div class="right-column">
+              <button
+                  class="follow-button"
+                  id="follow-button"
+                  onclick="toggleFollow()"
+              >
+                  Follow
+              </button>
+  
+              <div class="bio-section">
+                  <h2>Bio</h2>
+                  <p>Your neighborhood spot for fresh, locally-crafted pizza. 🍕</p>
+              </div>
+  
+              <div class="bio-section">
+                  <h2>Token</h2>
+                  <img
+                      src="https://placehold.co/113x113"
+                      class="token-image"
+                      alt="Token"
+                  />
+              </div>
+  
+              <div class="bio-section">
+                  <h2>Ranking</h2>
+                  <div class="ranking-number">#382</div>
+              </div>
           </div>
       </div>
   
-      <div id="home" class="page">
-        <h1>Welcome to the Home Page!</h1>
+      <div class="gallery-section">
+          <h2>Deals</h2>
+          <div class="deals-grid">
+              <div class="deal-item">
+                  <img src="https://placehold.co/80x103" alt="Deal 1" />
+                  <p>20% off</p>
+              </div>
+              <div class="deal-item">
+                  <img src="https://placehold.co/71x103" alt="Deal 2" />
+                  <p>10% off</p>
+              </div>
+              <div class="deal-item">
+                  <img src="https://placehold.co/69x103" alt="Deal 3" />
+                  <p>15% off</p>
+              </div>
+              <div class="deal-item">
+                  <img src="https://placehold.co/69x103" alt="Deal 4" />
+                  <p>30% off</p>
+              </div>
+          </div>
       </div>
   
-      <div id="settings" class="page">
-        <h1>Settings</h1>
+      <div class="gallery-section">
+          <h2>Gallery</h2>
+          <div class="gallery-grid">
+              <img src="https://placehold.co/115x117" alt="Gallery Image 1" />
+              <img src="https://placehold.co/114x117" alt="Gallery Image 2" />
+              <img src="https://placehold.co/113x117" alt="Gallery Image 3" />
+          </div>
       </div>
+  </div>
   
-      <div id="signup" class="page">
-        <button class="back-button" onclick="goBack()">
+  <div id="home" class="page">
+      <h1>Welcome to the Home Page!</h1>
+  </div>
+  
+  <div id="settings" class="page">
+      <h1>Settings</h1>
+  </div>
+  
+  <div id="signup" class="page">
+      <button class="back-button" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
-        </button>
-        <img src="images/logo.png" class="main-logo" alt="DRYFT logo" />
-        <h1 class="header">SIGN UP</h1>
-        <div class="form-group">
-            <button class="account-button">BUSINESS</button>
-            <button class="account-button">CUSTOMER</button>
-            <input type="text" class="auth-input" placeholder="FULL NAME" />
-            <input type="email" class="auth-input" placeholder="EMAIL" />
-            <input type="text" class="auth-input" placeholder="USERNAME" />
-            <input type="password" class="auth-input" placeholder="PASSWORD" />
-        </div>
-        <button id="signupConfirmButton" class="landing-button">SIGN UP</button>
+      </button>
+      <img src="images/logo.png" class="main-logo" alt="DRYFT logo" />
+      <h1 class="header">SIGN UP</h1>
+      <div class="form-group">
+          <button class="account-button">BUSINESS</button>
+          <button class="account-button">CUSTOMER</button>
+          <input type="text" class="auth-input" placeholder="FULL NAME" />
+          <input type="email" class="auth-input" placeholder="EMAIL" />
+          <input type="text" class="auth-input" placeholder="USERNAME" />
+          <input type="password" class="auth-input" placeholder="PASSWORD" />
       </div>
-
-        <!-- Right Column -->
-        <div class="right-column">
-          <!-- Follow Button -->
-          <button
-            class="follow-button"
-            id="follow-button"
-            onclick="toggleFollow()"
-          >
-            Follow
-          </button>
-
-          <!-- Bio -->
-          <div class="bio-section">
-            <h2>Bio</h2>
-            <p>Your neighborhood spot for fresh, locally-crafted pizza. 🍕</p>
-          </div>
-
-          <!-- Token Section -->
-          <div class="bio-section">
-            <h2>Token</h2>
-            <img
-              src="https://placehold.co/113x113"
-              class="token-image"
-              alt="Token"
-            />
-          </div>
-
-          <!-- Ranking Section -->
-          <div class="bio-section">
-            <h2>Ranking</h2>
-            <div class="ranking-number">#382</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Deals Section -->
-      <div class="gallery-section">
-        <h2>Deals</h2>
-        <div class="deals-grid">
-          <div class="deal-item">
-            <img src="https://placehold.co/80x103" alt="Deal 1" />
-            <p>20% off</p>
-          </div>
-          <div class="deal-item">
-            <img src="https://placehold.co/71x103" alt="Deal 2" />
-            <p>10% off</p>
-          </div>
-          <div class="deal-item">
-            <img src="https://placehold.co/69x103" alt="Deal 3" />
-            <p>15% off</p>
-          </div>
-          <div class="deal-item">
-            <img src="https://placehold.co/69x103" alt="Deal 4" />
-            <p>30% off</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Gallery Section -->
-      <div class="gallery-section">
-        <h2>Gallery</h2>
-        <div class="gallery-grid">
-          <img src="https://placehold.co/115x117" alt="Gallery Image 1" />
-          <img src="https://placehold.co/114x117" alt="Gallery Image 2" />
-          <img src="https://placehold.co/113x117" alt="Gallery Image 3" />
-        </div>
-      </div>
-    </div>
+      <button id="signupConfirmButton" class="landing-button">SIGN UP</button>
+  </div>
 
     <!-- ===================== -->
     <!-- Tokens Page (Nav Visible) -->
