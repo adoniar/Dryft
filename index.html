@@ -358,37 +358,60 @@
 
     <!-- Business Profile Page -->
     <div id="businessProfile" class="page">
-      <!-- Back Button -->
       <button class="back-button" onclick="goBack()">
-        <i class="fas fa-arrow-left"></i>
+          <i class="fas fa-arrow-left"></i>
       </button>
-
-      <!-- Settings Icon -->
+  
       <div class="settings-icon" onclick="showPage('settings')">
-        <i class="fas fa-cog"></i>
+          <i class="fas fa-cog"></i>
       </div>
-
+  
       <div class="profile-content">
-        <!-- Left Column -->
-        <div class="left-column">
-          <!-- Business Logo -->
-          <img
-            src="https://placehold.co/119x113"
-            class="profile-pic"
-            alt="Business Logo"
-          />
-          <h1 class="username">Freznos</h1>
-
-          <!-- Business Stats -->
-          <div class="tokens-section">
-            <h2>Followers</h2>
-            <div class="tokens-count">1200</div>
+          <div class="left-column">
+              <img
+                  src="https://placehold.co/119x113"
+                  class="profile-pic"
+                  alt="Business Logo"
+              />
+              <h1 class="username">Freznos</h1>
+  
+              <div class="tokens-section">
+                  <h2>Followers</h2>
+                  <div class="tokens-count">1200</div>
+              </div>
+              <div class="ranking-section">
+                  <h2>Following</h2>
+                  <div class="ranking-number">100</div>
+              </div>
           </div>
-          <div class="ranking-section">
-            <h2>Following</h2>
-            <div class="ranking-number">100</div>
+          <div class="right-column"></div>
           </div>
+      </div>
+  
+      <div id="home" class="page">
+        <h1>Welcome to the Home Page!</h1>
+      </div>
+  
+      <div id="settings" class="page">
+        <h1>Settings</h1>
+      </div>
+  
+      <div id="signup" class="page">
+        <button class="back-button" onclick="goBack()">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <img src="images/logo.png" class="main-logo" alt="DRYFT logo" />
+        <h1 class="header">SIGN UP</h1>
+        <div class="form-group">
+            <button class="account-button">BUSINESS</button>
+            <button class="account-button">CUSTOMER</button>
+            <input type="text" class="auth-input" placeholder="FULL NAME" />
+            <input type="email" class="auth-input" placeholder="EMAIL" />
+            <input type="text" class="auth-input" placeholder="USERNAME" />
+            <input type="password" class="auth-input" placeholder="PASSWORD" />
         </div>
+        <button id="signupConfirmButton" class="landing-button">SIGN UP</button>
+      </div>
 
         <!-- Right Column -->
         <div class="right-column">
