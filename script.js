@@ -188,3 +188,20 @@ function saveProfileChanges() {
     alert("Profile changes saved!");
     showPage("profile");
 }
+
+function showPage(pageId) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(page => {
+      page.style.display = 'none';
+      page.classList.remove('active-page');
+    });
+  
+    // Show the requested page
+    const nextPage = document.getElementById(pageId);
+    if (nextPage) {
+      nextPage.style.display = 'block';
+      nextPage.classList.add('active-page');
+    } else {
+      console.error('Page not found: ' + pageId);
+    }
+  }
