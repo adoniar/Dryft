@@ -1,6 +1,54 @@
+// Show a given page by ID, hide others
+function showPage(pageId) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active-page');
+        page.classList.add('hidden'); // Ensure all are hidden before showing
+    });
+
+    // Show requested page
+    const pageToShow = document.getElementById(pageId);
+    if (pageToShow) {
+        pageToShow.classList.remove('hidden');
+        pageToShow.classList.add('active-page');
+    } else {
+        console.error(`Error: Page with ID '${pageId}' not found.`);
+    }
+
+    // Hide or show the nav bar based on page
+    const navBar = document.getElementById("globalNavBar");
+    if (pageId === "landing" || pageId === "login" || pageId === "signup") {
+        navBar.style.display = "none";
+    } else {
+        navBar.style.display = "flex";
+    }
+}
+
 // Initialize with landing page
 document.addEventListener("DOMContentLoaded", () => {
     showPage("landing");
+
+    // Get the "Get Started" buttons on the landing page
+    const getStartedBusinessButton = document.querySelector('#landing .get-started-business');
+    const getStartedCustomerButton = document.querySelector('#landing .get-started-customer');
+
+    // Event listener for "Get Started Business"
+    if (getStartedBusinessButton) {
+        getStartedBusinessButton.addEventListener('click', () => {
+            showPage('signup'); // Take the user to the signup page
+        });
+    } else {
+        console.warn("Warning: 'Get Started Business' button not found on the landing page.");
+    }
+
+    // Event listener for "Get Started Customer"
+    if (getStartedCustomerButton) {
+        getStartedCustomerButton.addEventListener('click', () => {
+            showPage('customerOriginal'); // Take the user directly to the customer page
+        });
+    } else {
+        console.warn("Warning: 'Get Started Customer' button not found on the landing page.");
+    }
 });
 
 // Go Back function to handle "back-button" logic
@@ -13,6 +61,7 @@ function goBack() {
         case "signup":
             previousPage = "landing";
             break;
+        case "customerOriginal": // Go back from customer page to landing
         case "home":
             previousPage = "landing";
             break;
@@ -35,11 +84,14 @@ function goBack() {
         case "scanToken":
             previousPage = "tokens";
             break;
+        case "businessProfile": // Go back from business profile to signup
+            previousPage = "signup";
+            break;
     }
     showPage(previousPage);
 }
 
-// Toggle "active" class on account type buttons
+// Toggle "active" class on account type buttons (for signup page)
 document.querySelectorAll(".account-button").forEach((button) => {
     button.addEventListener("click", function () {
         document
@@ -47,6 +99,23 @@ document.querySelectorAll(".account-button").forEach((button) => {
             .forEach((btn) => btn.classList.remove("active"));
         this.classList.add("active");
     });
+});
+
+// Detect selected account type on SIGN UP and redirect accordingly
+document.getElementById("signupConfirmButton").addEventListener("click", function () {
+    const selected = document.querySelector("#signup .account-button.active");
+    if (!selected) {
+        alert("Please select an account type.");
+        return;
+    }
+
+    const role = selected.textContent.trim();
+    if (role === "BUSINESS") {
+        showPage("businessProfile"); // Redirect to business page
+    } else if (role === "CUSTOMER") {
+        // Assuming 'home' was a placeholder for your main customer page
+        showPage("customerOriginal"); // Show the original customer page
+    }
 });
 
 // Like button toggle
@@ -124,93 +193,4 @@ function toggleFollow() {
 function saveProfileChanges() {
     alert("Profile changes saved!");
     showPage("profile");
-}
-
-// Detect selected account type on SIGN UP and redirect accordingly
-function showPage(pageId) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active-page');
-        page.classList.add('hidden'); // Ensure all are hidden before showing
-    });
-
-    // Show requested page
-    const pageToShow = document.getElementById(pageId);
-    if (pageToShow) {
-        pageToShow.classList.remove('hidden');
-        pageToShow.classList.add('active-page');
-    } else {
-        console.error(`Error: Page with ID '${pageId}' not found.`);
-    }
-}
-
-// Initially hide all pages except the landing/get started page
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.page').forEach(page => {
-        if (page.id !== 'landing') {
-            page.classList.add('hidden');
-        } else {
-            page.classList.add('active-page');
-        }
-    });
-
-    // Update the button selectors to match the existing buttons
-    const getStartedBusinessButton = document.querySelector('.landing-button[onclick="showPage(\'signup\')"]');
-    const getStartedCustomerButton = document.querySelector('.landing-button[onclick="showPage(\'login\')"]');
-
-    if (getStartedBusinessButton) {
-        getStartedBusinessButton.addEventListener('click', function() {
-            showPage('businessProfile'); // Replace 'businessProfile' with the correct page ID
-        });
-    } else {
-        console.warn("Warning: 'Get Started Business' button not found on the landing page.");
-    }
-
-    if (getStartedCustomerButton) {
-        getStartedCustomerButton.addEventListener('click', function() {
-            showPage('customerOriginal'); // Replace 'customerOriginal' with the correct page ID
-        });
-    } else {
-        console.warn("Warning: 'Get Started Customer' button not found on the landing page.");
-    }
-});
-
-// Detect selected account type on SIGN UP and redirect accordingly
-document.getElementById("signupConfirmButton").addEventListener("click", function () {
-    const selected = document.querySelector("#signup .account-button.active");
-    if (!selected) {
-        alert("Please select an account type.");
-        return;
-    }
-
-    const role = selected.textContent.trim();
-    if (role === "BUSINESS") {
-        showPage("businessProfile"); // Redirect to business page
-    } else if (role === "CUSTOMER") {
-        // original customer flow is triggered here
-        showPage("customerOriginal"); // Show the original customer page
-    }
-});
-
-document.querySelectorAll('.account-button').forEach(button => {
-    button.addEventListener('click', function () {
-        document.querySelectorAll('.account-button').forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
-    });
-});
-
-function goBack() {
-    // Implement the go back functionality here
-    console.log("Go back functionality needs implementation.");
-}
-
-function toggleFollow() {
-    const followButton = document.getElementById('follow-button');
-    if (followButton) {
-        if (followButton.textContent === 'Follow') {
-            followButton.textContent = 'Following';
-        } else {
-            followButton.textContent = 'Follow';
-        }
-    }
 }
