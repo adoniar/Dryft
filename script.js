@@ -163,7 +163,7 @@ document.getElementById("signupConfirmButton").addEventListener("click", functio
 
     const role = selected.textContent.trim();
     if (role === "BUSINESS") {
-        showPage("businessSignup"); // Redirect to business page
+        showPage("businessProfile"); // Redirect to business page
     } else {
         showPage("home"); // Continue with existing customer flow
     }
