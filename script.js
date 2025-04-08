@@ -1,113 +1,95 @@
-// Show a given page by ID, hide others
-function showPage(pageId) {
-    // Hide all pages
-    document.querySelectorAll(".page").forEach((page) => {
-      page.classList.remove("active-page");
-    });
-    // Show the requested page
-    document.getElementById(pageId).classList.add("active-page");
-
-    // Hide or show the nav bar based on page
-    const navBar = document.getElementById("globalNavBar");
-    if (pageId === "landing" || pageId === "login" || pageId === "signup") {
-      navBar.style.display = "none";
-    } else {
-      navBar.style.display = "flex";
-    }
-  }
-
-  // Initialize with landing page
-  document.addEventListener("DOMContentLoaded", () => {
+// Initialize with landing page
+document.addEventListener("DOMContentLoaded", () => {
     showPage("landing");
-  });
+});
 
-  // Go Back function to handle "back-button" logic
-  function goBack() {
+// Go Back function to handle "back-button" logic
+function goBack() {
     const currentPage = document.querySelector(".active-page").id;
     let previousPage = "landing";
 
     switch (currentPage) {
-      case "login":
-      case "signup":
-        previousPage = "landing";
-        break;
-      case "home":
-        previousPage = "landing";
-        break;
-      case "feed":
-      case "map":
-      case "profile":
-      case "tokens":
-      case "starOfTheWeek":
-        previousPage = "home";
-        break;
-      case "settings":
-        previousPage = "profile";
-        break;
-      case "editProfile":
-      case "favorites":
-      case "friends":
-      case "contactUs":
-        previousPage = "settings";
-        break;
-      case "scanToken":
-        previousPage = "tokens";
-        break;
+        case "login":
+        case "signup":
+            previousPage = "landing";
+            break;
+        case "home":
+            previousPage = "landing";
+            break;
+        case "feed":
+        case "map":
+        case "profile":
+        case "tokens":
+        case "starOfTheWeek":
+            previousPage = "home";
+            break;
+        case "settings":
+            previousPage = "profile";
+            break;
+        case "editProfile":
+        case "favorites":
+        case "friends":
+        case "contactUs":
+            previousPage = "settings";
+            break;
+        case "scanToken":
+            previousPage = "tokens";
+            break;
     }
     showPage(previousPage);
-  }
+}
 
-  // Toggle "active" class on account type buttons
-  document.querySelectorAll(".account-button").forEach((button) => {
+// Toggle "active" class on account type buttons
+document.querySelectorAll(".account-button").forEach((button) => {
     button.addEventListener("click", function () {
-      document
-        .querySelectorAll(".account-button")
-        .forEach((btn) => btn.classList.remove("active"));
-      this.classList.add("active");
+        document
+            .querySelectorAll(".account-button")
+            .forEach((btn) => btn.classList.remove("active"));
+        this.classList.add("active");
     });
-  });
+});
 
-  // Like button toggle
-  function toggleLike(button) {
+// Like button toggle
+function toggleLike(button) {
     const heartIcon = button.querySelector("i");
     const likeCount = button.querySelector(".like-count");
 
     if (heartIcon.classList.contains("far")) {
-      heartIcon.classList.remove("far");
-      heartIcon.classList.add("fas");
-      likeCount.textContent = parseInt(likeCount.textContent) + 1;
-      button.classList.add("liked");
+        heartIcon.classList.remove("far");
+        heartIcon.classList.add("fas");
+        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+        button.classList.add("liked");
     } else {
-      heartIcon.classList.remove("fas");
-      heartIcon.classList.add("far");
-      likeCount.textContent = parseInt(likeCount.textContent) - 1;
-      button.classList.remove("liked");
+        heartIcon.classList.remove("fas");
+        heartIcon.classList.add("far");
+        likeCount.textContent = parseInt(likeCount.textContent) - 1;
+        button.classList.remove("liked");
     }
-  }
+}
 
-  // Log out
-  function logOut() {
+// Log out
+function logOut() {
     showPage("landing");
-  }
+}
 
-  // Submit Contact Form
-  function submitContactForm() {
+// Submit Contact Form
+function submitContactForm() {
     const fullName = document.querySelector(
-      '#contactUs input[placeholder="Full Name"]'
+        '#contactUs input[placeholder="Full Name"]'
     ).value;
     const email = document.querySelector(
-      '#contactUs input[placeholder="Email Address"]'
+        '#contactUs input[placeholder="Email Address"]'
     ).value;
     const subject = document.querySelector(
-      '#contactUs input[placeholder="Subject"]'
+        '#contactUs input[placeholder="Subject"]'
     ).value;
     const message = document.querySelector(
-      "#contactUs .message-input"
+        "#contactUs .message-input"
     ).value;
 
     if (!fullName || !email || !subject || !message) {
-      alert("Please fill out all fields.");
-      return;
+        alert("Please fill out all fields.");
+        return;
     }
 
     console.log("Form Submitted:", { fullName, email, subject, message });
@@ -115,34 +97,34 @@ function showPage(pageId) {
 
     // Clear the form
     document.querySelector(
-      '#contactUs input[placeholder="Full Name"]'
+        '#contactUs input[placeholder="Full Name"]'
     ).value = "";
     document.querySelector(
-      '#contactUs input[placeholder="Email Address"]'
+        '#contactUs input[placeholder="Email Address"]'
     ).value = "";
     document.querySelector(
-      '#contactUs input[placeholder="Subject"]'
+        '#contactUs input[placeholder="Subject"]'
     ).value = "";
     document.querySelector("#contactUs .message-input").value = "";
 
     showPage("home");
-  }
+}
 
-  // Toggle Follow button text
-  function toggleFollow() {
+// Toggle Follow button text
+function toggleFollow() {
     const btn = document.getElementById("follow-button");
     if (btn.innerText === "Follow") {
-      btn.innerText = "Unfollow";
+        btn.innerText = "Unfollow";
     } else {
-      btn.innerText = "Follow";
+        btn.innerText = "Follow";
     }
-  }
+}
 
-  // Save Edit Profile changes (placeholder)
-  function saveProfileChanges() {
+// Save Edit Profile changes (placeholder)
+function saveProfileChanges() {
     alert("Profile changes saved!");
     showPage("profile");
-  }
+}
 
 // Detect selected account type on SIGN UP and redirect accordingly
 function showPage(pageId) {
@@ -205,7 +187,7 @@ document.getElementById("signupConfirmButton").addEventListener("click", functio
     if (role === "BUSINESS") {
         showPage("businessProfile"); // Redirect to business page
     } else if (role === "CUSTOMER") {
-        // Assuming your original customer flow is triggered here
+        // original customer flow is triggered here
         showPage("customerOriginal"); // Show the original customer page
     }
 });
@@ -218,7 +200,7 @@ document.querySelectorAll('.account-button').forEach(button => {
 });
 
 function goBack() {
-    // Implement your go back functionality here
+    // Implement the go back functionality here
     console.log("Go back functionality needs implementation.");
 }
 
