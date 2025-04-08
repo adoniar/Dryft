@@ -75,13 +75,14 @@ function goBack() {
         case "scanToken":
             previousPage = "tokens";
             break;
-        case "businessProfile": // Go back from business profile to signup
+        case "businessProfile":
             previousPage = "signup";
             break;
-        case "customerOriginal": // If you had a separate customer page after login
-            previousPage = "landing"; // Or perhaps 'home' depending on your flow
+        case "customerOriginal":
+            previousPage = "landing";
             break;
     }
+
     showPage(previousPage);
 }
 
