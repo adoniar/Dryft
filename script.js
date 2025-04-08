@@ -165,20 +165,20 @@ function showPage(pageId) {
 // Initially hide all pages except the landing/get started page
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.page').forEach(page => {
-        if (page.id !== 'landing') { // Assuming your initial "get started" page has id="landing"
+        if (page.id !== 'landing') {
             page.classList.add('hidden');
         } else {
             page.classList.add('active-page');
         }
     });
 
-    // Add event listeners to the "Get Started" buttons
-    const getStartedBusinessButton = document.querySelector('#landing .account-button.business');
-    const getStartedCustomerButton = document.querySelector('#landing .account-button.customer');
+    // Update the button selectors to match the existing buttons
+    const getStartedBusinessButton = document.querySelector('.landing-button[onclick="showPage(\'signup\')"]');
+    const getStartedCustomerButton = document.querySelector('.landing-button[onclick="showPage(\'login\')"]');
 
     if (getStartedBusinessButton) {
         getStartedBusinessButton.addEventListener('click', function() {
-            showPage('businessProfile');
+            showPage('businessProfile'); // Replace 'businessProfile' with the correct page ID
         });
     } else {
         console.warn("Warning: 'Get Started Business' button not found on the landing page.");
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (getStartedCustomerButton) {
         getStartedCustomerButton.addEventListener('click', function() {
-            showPage('customerOriginal'); // Assuming your original customer code is on a page with id="customerOriginal"
+            showPage('customerOriginal'); // Replace 'customerOriginal' with the correct page ID
         });
     } else {
         console.warn("Warning: 'Get Started Customer' button not found on the landing page.");
