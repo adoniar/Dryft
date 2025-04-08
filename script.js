@@ -75,7 +75,7 @@ document.querySelectorAll('.account-button').forEach(button => {
     });
 });
 
-// Add to your existing script.js
+// Add to existing script.js
 function toggleLike(button) {
     const heartIcon = button.querySelector('i');
     const likeCount = button.querySelector('.like-count');
@@ -152,3 +152,26 @@ function toggleLike(button) {
         button.classList.remove('liked');
     }
 }
+
+// Detect selected account type on SIGN UP and redirect accordingly
+document.getElementById("signupConfirmButton").addEventListener("click", function () {
+    const selected = document.querySelector("#signup .account-button.active");
+    if (!selected) {
+        alert("Please select an account type.");
+        return;
+    }
+
+    const role = selected.textContent.trim();
+    if (role === "BUSINESS") {
+        showPage("businessSignup"); // Redirect to business page
+    } else {
+        showPage("home"); // Continue with existing customer flow
+    }
+});
+
+document.querySelectorAll('.account-button').forEach(button => {
+    button.addEventListener('click', function () {
+        document.querySelectorAll('.account-button').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
