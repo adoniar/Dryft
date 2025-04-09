@@ -1070,6 +1070,7 @@ body {
     width: 230px;
     height: 230px;
     object-fit: cover;
+    border: 0px;
 }
 
 .selected-token .token-name {
