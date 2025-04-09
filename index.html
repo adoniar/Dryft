@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    
     <!-- ===================== -->
     <!-- Landing Page (Hidden Nav) -->
     <!-- ===================== -->
@@ -73,7 +72,7 @@
         <input type="text" class="auth-input" placeholder="USERNAME" />
         <input type="password" class="auth-input" placeholder="PASSWORD" />
       </div>
-      <button id="signupConfirmButton" class="landing-button">SIGN UP</button>
+      <button class="landing-button" onclick="showPage('home')">SIGN UP</button>
     </div>
 
     <!-- ===================== -->
@@ -282,7 +281,7 @@
       </button>
 
       <!-- Settings Icon -->
-      <div class="settings-icon" onclick="showPage('settingsProfile')">
+      <div class="settings-icon" onclick="showPage('settings')">
         <i class="fas fa-cog"></i>
       </div>
 
@@ -357,67 +356,76 @@
       </div>
     </div>
 
-    <!-- ===================== -->
-    <!-- Business Page -->
-    <!-- ===================== -->
+    <!-- Business Profile Page -->
     <div id="businessProfile" class="page">
+      <!-- Back Button -->
       <button class="back-button" onclick="goBack()">
-          <i class="fas fa-arrow-left"></i>
+        <i class="fas fa-arrow-left"></i>
       </button>
-  
+
       <!-- Settings Icon -->
-      <div class="settings-icon" onclick="showPage('settingsBusiness')">
+      <div class="settings-icon" onclick="showPage('settings')">
         <i class="fas fa-cog"></i>
       </div>
-  
+
       <div class="profile-content">
-          <div class="left-column">
-              <img
-                  src="https://placehold.co/119x113"
-                  class="profile-pic"
-                  alt="Business Logo"
-              />
-              <h1 class="username">Freznos</h1>
-  
-              <div class="tokens-section">
-                  <h2>Followers</h2>
-                  <div class="tokens-count">1200</div>
-              </div>
-              <div class="ranking-section">
-                  <h2>Following</h2>
-                  <div class="ranking-number">100</div>
-              </div>
+        <!-- Left Column -->
+        <div class="left-column">
+          <!-- Business Logo -->
+          <img
+            src="https://placehold.co/119x113"
+            class="profile-pic"
+            alt="Business Logo"
+          />
+          <h1 class="username">Freznos</h1>
+
+          <!-- Business Stats -->
+          <div class="tokens-section">
+            <h2>Followers</h2>
+            <div class="tokens-count">1200</div>
           </div>
-          <div class="right-column">
-            <button
-              class="follow-button"
-              id="follow-button"
-              onclick="toggleFollow()"
-              >
-              Follow
-            </button>
-  
-            <div class="bio-section">
-              <h2>Bio</h2>
-              <p>Your neighborhood spot for fresh, locally-crafted pizza. 🍕</p>
-            </div>
-  
-            <div class="bio-section">
-              <h2>Token</h2>
-              <img
-                src="https://placehold.co/113x113"
-                class="token-image"
-                alt="Token"
-                />
-            </div>
-  
-            <div class="bio-section">
-              <h2>Ranking</h2>
-              <div class="ranking-number">#382</div>
-            </div>
+          <div class="ranking-section">
+            <h2>Following</h2>
+            <div class="ranking-number">100</div>
           </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+          <!-- Follow Button -->
+          <button
+            class="follow-button"
+            id="follow-button"
+            onclick="toggleFollow()"
+          >
+            Follow
+          </button>
+
+          <!-- Bio -->
+          <div class="bio-section">
+            <h2>Bio</h2>
+            <p>Your neighborhood spot for fresh, locally-crafted pizza. 🍕</p>
+          </div>
+
+          <!-- Token Section -->
+          <div class="bio-section">
+            <h2>Token</h2>
+            <img
+              src="https://placehold.co/113x113"
+              class="token-image"
+              alt="Token"
+            />
+          </div>
+
+          <!-- Ranking Section -->
+          <div class="bio-section">
+            <h2>Ranking</h2>
+            <div class="ranking-number">#382</div>
+          </div>
+        </div>
       </div>
-  
+
+      <!-- Deals Section -->
       <div class="gallery-section">
         <h2>Deals</h2>
         <div class="deals-grid">
@@ -439,7 +447,8 @@
           </div>
         </div>
       </div>
-  
+
+      <!-- Gallery Section -->
       <div class="gallery-section">
         <h2>Gallery</h2>
         <div class="gallery-grid">
@@ -447,52 +456,6 @@
           <img src="https://placehold.co/114x117" alt="Gallery Image 2" />
           <img src="https://placehold.co/113x117" alt="Gallery Image 3" />
         </div>
-      </div>
-  
-      <div id="home" class="page">
-        <h1>Welcome to the Home Page!</h1>
-      </div>
-  
-      <div id="settingsBusiness" class="page">
-        <h1>Settings</h1>
-        <button class="back-button" onclick="goBack()">
-          <i class="fas fa-arrow-left"></i>
-        </button>
-        <h1 class="settings-title">Settings</h1>
-
-      <div class="settings-options">
-        <div class="settings-item" onclick="showPage('editProfile')">
-          <div class="settings-button">Edit Profile</div>
-        </div>
-        <div class="settings-item" onclick="showPage('favorites')">
-         <div class="settings-button">Favorites</div>
-        </div>
-        <div class="settings-item" onclick="showPage('friends')">
-          <div class="settings-button">Friends</div>
-        </div>
-        <div class="settings-item" onclick="showPage('contactUs')">
-          <div class="settings-button">Contact Us!</div>
-        </div>
-        <div class="settings-item" onclick="logOut()">
-          <div class="settings-button logout-button">Log Out</div>
-        </div>
-      </div>
-  
-      <div id="signup" class="page">
-        <button class="back-button" onclick="goBack()">
-          <i class="fas fa-arrow-left"></i>
-        </button>
-        <img src="images/logo.png" class="main-logo" alt="DRYFT logo" />
-        <h1 class="header">SIGN UP</h1>
-        <div class="form-group">
-        <button class="account-button">BUSINESS</button>
-        <button class="account-button">CUSTOMER</button>
-        <input type="text" class="auth-input" placeholder="FULL NAME" />
-        <input type="email" class="auth-input" placeholder="EMAIL" />
-        <input type="text" class="auth-input" placeholder="USERNAME" />
-        <input type="password" class="auth-input" placeholder="PASSWORD" />
-      </div>
-      <button id="signupConfirmButton" class="landing-button">SIGN UP</button>
       </div>
     </div>
 
@@ -527,15 +490,15 @@
         <img src="images/token1.png" alt="Token 1" class="token-image" />
         <img src="images/token2.png" alt="Token 2" class="token-image" />
         <img src="images/token3.png" alt="Token 3" class="token-image" />
-        <img src="images/token7.PNG" alt="Token 7" class="token-image" />
+        <img src="images/token7.PNG" alt="Token 4" class="token-image" />
         <img src="images/token5.PNG" alt="Token 5" class="token-image" />
-        <img src="images/token6.PNG" alt="Token 6" class="token-image" />
-        <img src="images/token8.png" alt="Token 8" class="token-image" />
-        <img src="images/token9.png" alt="Token 9" class="token-image" />
+        <img src="images/token6.PNG" alt="Token 5" class="token-image" />
+        <img src="images/token8.png" alt="Token 5" class="token-image" />
+        <img src="images/token9.png" alt="Token 4" class="token-image" />
         <img src="images/Token4.png" alt="Token 4" class="token-image" />
         <img src="images/Token10.png" alt="Token 10" class="token-image" />
-        <img src="images/token11.png" alt="Token 11" class="token-image" />
-        <img src="images/token12.png" alt="Token 12" class="token-image" />
+        <img src="images/Token4.png" alt="Token 4" class="token-image" />
+        <img src="images/Token4.png" alt="Token 4" class="token-image" />
       </div>
     </div>
 
@@ -569,8 +532,7 @@
     <!-- ===================== -->
     <!-- Settings Page (Nav Visible) -->
     <!-- ===================== -->
-    <!-- Profile Settings Page -->
-    <div id="settingsProfile" class="page">
+    <div id="settings" class="page">
       <button class="back-button" onclick="goBack()">
         <i class="fas fa-arrow-left"></i>
       </button>
