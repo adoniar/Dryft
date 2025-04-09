@@ -189,19 +189,11 @@ function saveProfileChanges() {
     showPage("profile");
 }
 
-function showPage(pageId) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(page => {
-      page.style.display = 'none';
-      page.classList.remove('active-page');
-    });
-  
-    // Show the requested page
-    const nextPage = document.getElementById(pageId);
-    if (nextPage) {
-      nextPage.style.display = 'block';
-      nextPage.classList.add('active-page');
+function goToSettings() {
+    const userType = localStorage.getItem("userType"); // Or however you’re tracking login type
+    if (userType === "business") {
+      showPage("settingsBusiness");
     } else {
-      console.error('Page not found: ' + pageId);
+      showPage("settingsProfile");
     }
   }
