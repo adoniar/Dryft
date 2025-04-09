@@ -1262,7 +1262,6 @@ body {
     color: white;
   }
 
-  /* Make a Post css*/
 
   /* Make a Post Page Styling */
 #makePost {
@@ -1333,4 +1332,12 @@ body {
   
   #makePost .landing-button:hover {
     background-color: #4a6a4a;
+  }
+
+/* Center the Add Photo button in the Make a Post page */
+#makePost label[for="postImage"] {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    width: auto;
   }
