@@ -143,32 +143,3 @@ function showPage(pageId) {
     alert("Profile changes saved!");
     showPage("profile");
   }
-
-  let selectedRole = ''; // This will store the role ('customer' or 'business')
-
-  // When a user selects their role (Customer or Business)
-  function selectRole(role) {
-      selectedRole = role; // Store the role selected
-      document.getElementById('landingPage').style.display = 'none'; // Hide the homepage
-  
-      // If the user selects 'customer', you can show some customer-specific content or keep the homepage
-      if (selectedRole === 'customer') {
-          // You can add any customer-specific content here or just keep the homepage as is
-          alert('Welcome, Customer!'); // Placeholder for customer interaction
-          // You can leave it at the homepage or change the content dynamically
-      } else if (selectedRole === 'business') {
-          document.getElementById('businessProfile').style.display = 'block'; // Show business profile page
-      }
-  }
-  
-  // Go back to the homepage from the Business Profile page
-  function goBack() {
-      document.getElementById('businessProfile').style.display = 'none'; // Hide business profile page
-      document.getElementById('landingPage').style.display = 'block'; // Show the homepage again
-  }
-  
-  // Toggle the follow button
-  function toggleFollow() {
-      const button = document.getElementById('follow-button');
-      button.innerText = button.innerText === 'Follow' ? 'Following' : 'Follow';
-  }
