@@ -1064,7 +1064,6 @@ body {
 .selected-token {
     text-align: center;
     margin-top: 20px;
-    border: none;
 }
 
 .selected-token .token-image {
