@@ -1261,3 +1261,76 @@ body {
     background-color: #4a6a4a; /* Darker green for active state */
     color: white;
   }
+
+  /* Make a Post css*/
+
+  /* Make a Post Page Styling */
+#makePost {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+  }
+  
+  #makePost .back-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  #makePost .header {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  #makePost .post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  #makePost .auth-input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  #makePost .message-input {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  #makePost input[type="file"] {
+    padding: 10px 0;
+  }
+  
+  #makePost .post-preview {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+    display: none; /* shown via JS when needed */
+  }
+  
+  #makePost .landing-button {
+    padding: 12px;
+    font-size: 1rem;
+    background-color:#648268;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #makePost .landing-button:hover {
+    background-color: #4a6a4a;
+  }
