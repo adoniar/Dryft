@@ -490,15 +490,15 @@
         <img src="images/token1.png" alt="Token 1" class="token-image" />
         <img src="images/token2.png" alt="Token 2" class="token-image" />
         <img src="images/token3.png" alt="Token 3" class="token-image" />
-        <img src="images/Token4.png" alt="Token 4" class="token-image" />
+        <img src="images/token7.PNG" alt="Token 4" class="token-image" />
         <img src="images/token5.PNG" alt="Token 5" class="token-image" />
-        <img src="images/token6.PNG" alt="Token 6" class="token-image" />
-        <img src="images/token7.PNG" alt="Token 7" class="token-image" />
-        <img src="images/token8.png" alt="Token 8" class="token-image" />
-        <img src="images/token9.png" alt="Token 9" class="token-image" />
-        <img src="images/Token10.png" alt="Token 10" class="token-image" />
-        <img src="images/token11.png" alt="Token 11" class="token-image" />
-        <img src="images/token12.png" alt="Token 12" class="token-image" />
+        <img src="images/token6.PNG" alt="Token 5" class="token-image" />
+        <img src="images/token8.png" alt="Token 5" class="token-image" />
+        <img src="images/token9.png" alt="Token 4" class="token-image" />
+        <img src="images/Token4.png" alt="Token 4" class="token-image" />
+        <img src="images/Token4.png" alt="Token 4" class="token-image" />
+        <img src="images/Token4.png" alt="Token 4" class="token-image" />
+        <img src="images/Token4.png" alt="Token 4" class="token-image" />
       </div>
     </div>
 
@@ -512,7 +512,11 @@
       <h1 class="header">Star of the Week</h1>
 
       <div class="selected-token">
-        <img src="images/token1.png" alt="Selected Token" class="token-image" />
+        <img
+          src="images/SUSHITOKENGIF.gif"
+          alt="Selected Token"
+          class="token-image"
+        />
         <h2 class="token-name">Vinyl Vibes Token</h2>
       </div>
 
@@ -796,7 +800,156 @@ SUPPORT LOCAL BUSINESSES!!!!!!</textarea
         <span>Profile</span>
       </div>
     </div>
-    
-    <script src="script.js"></script>
+
+    <!-- ===================== -->
+    <!-- JavaScript -->
+    <!-- ===================== -->
+    <script>
+      // Show a given page by ID, hide others
+      function showPage(pageId) {
+        // Hide all pages
+        document.querySelectorAll(".page").forEach((page) => {
+          page.classList.remove("active-page");
+        });
+        // Show the requested page
+        document.getElementById(pageId).classList.add("active-page");
+
+        // Hide or show the nav bar based on page
+        const navBar = document.getElementById("globalNavBar");
+        if (pageId === "landing" || pageId === "login" || pageId === "signup") {
+          navBar.style.display = "none";
+        } else {
+          navBar.style.display = "flex";
+        }
+      }
+
+      // Initialize with landing page
+      document.addEventListener("DOMContentLoaded", () => {
+        showPage("landing");
+      });
+
+      // Go Back function to handle "back-button" logic
+      function goBack() {
+        const currentPage = document.querySelector(".active-page").id;
+        let previousPage = "landing";
+
+        switch (currentPage) {
+          case "login":
+          case "signup":
+            previousPage = "landing";
+            break;
+          case "home":
+            previousPage = "landing";
+            break;
+          case "feed":
+          case "map":
+          case "profile":
+          case "tokens":
+          case "starOfTheWeek":
+            previousPage = "home";
+            break;
+          case "settings":
+            previousPage = "profile";
+            break;
+          case "editProfile":
+          case "favorites":
+          case "friends":
+          case "contactUs":
+            previousPage = "settings";
+            break;
+          case "scanToken":
+            previousPage = "tokens";
+            break;
+        }
+        showPage(previousPage);
+      }
+
+      // Toggle "active" class on account type buttons
+      document.querySelectorAll(".account-button").forEach((button) => {
+        button.addEventListener("click", function () {
+          document
+            .querySelectorAll(".account-button")
+            .forEach((btn) => btn.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+
+      // Like button toggle
+      function toggleLike(button) {
+        const heartIcon = button.querySelector("i");
+        const likeCount = button.querySelector(".like-count");
+
+        if (heartIcon.classList.contains("far")) {
+          heartIcon.classList.remove("far");
+          heartIcon.classList.add("fas");
+          likeCount.textContent = parseInt(likeCount.textContent) + 1;
+          button.classList.add("liked");
+        } else {
+          heartIcon.classList.remove("fas");
+          heartIcon.classList.add("far");
+          likeCount.textContent = parseInt(likeCount.textContent) - 1;
+          button.classList.remove("liked");
+        }
+      }
+
+      // Log out
+      function logOut() {
+        showPage("landing");
+      }
+
+      // Submit Contact Form
+      function submitContactForm() {
+        const fullName = document.querySelector(
+          '#contactUs input[placeholder="Full Name"]'
+        ).value;
+        const email = document.querySelector(
+          '#contactUs input[placeholder="Email Address"]'
+        ).value;
+        const subject = document.querySelector(
+          '#contactUs input[placeholder="Subject"]'
+        ).value;
+        const message = document.querySelector(
+          "#contactUs .message-input"
+        ).value;
+
+        if (!fullName || !email || !subject || !message) {
+          alert("Please fill out all fields.");
+          return;
+        }
+
+        console.log("Form Submitted:", { fullName, email, subject, message });
+        alert("Thank you for contacting us! We will get back to you soon.");
+
+        // Clear the form
+        document.querySelector(
+          '#contactUs input[placeholder="Full Name"]'
+        ).value = "";
+        document.querySelector(
+          '#contactUs input[placeholder="Email Address"]'
+        ).value = "";
+        document.querySelector(
+          '#contactUs input[placeholder="Subject"]'
+        ).value = "";
+        document.querySelector("#contactUs .message-input").value = "";
+
+        showPage("home");
+      }
+
+      // Toggle Follow button text
+      function toggleFollow() {
+        const btn = document.getElementById("follow-button");
+        if (btn.innerText === "Follow") {
+          btn.innerText = "Unfollow";
+        } else {
+          btn.innerText = "Follow";
+        }
+      }
+
+      // Save Edit Profile changes (placeholder)
+      function saveProfileChanges() {
+        alert("Profile changes saved!");
+        showPage("profile");
+      }
+    </script>
   </body>
 </html>
