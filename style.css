@@ -93,7 +93,12 @@ body {
 #landing .nav-bar,
 #signup .nav-bar,
 #login .nav-bar {
-    display: none !important; /* Force the rule to take precedence */
+  display: none !important; /* Force the rule to take precedence */
+}
+
+/* Show Navbar on All Pages Except Landing, Signup, and Login */
+.page:not(#landing):not(#signup):not(#login) .nav-bar {
+  display: block !important; /* Ensure navbar is visible */
 }
 
 .landing-button {

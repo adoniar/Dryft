@@ -188,12 +188,3 @@ function saveProfileChanges() {
     alert("Profile changes saved!");
     showPage("profile");
 }
-
-function goToSettings() {
-    const userType = localStorage.getItem("userType"); // Or however you’re tracking login type
-    if (userType === "business") {
-      showPage("settingsBusiness");
-    } else {
-      showPage("settingsProfile");
-    }
-  }
