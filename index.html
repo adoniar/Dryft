@@ -39,21 +39,21 @@
       </div>
     </div>
 
-    <!-- ===================== -->
-    <!-- Login Page (Hidden Nav) -->
-    <!-- ===================== -->
-    <div id="login" class="page">
-      <button class="back-button" onclick="goBack()">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <img src="images/logo.png" class="main-logo" alt="DRYFT logo" />
-      <h1 class="header">LOG IN</h1>
-      <div class="form-group">
-        <input type="text" class="auth-input" placeholder="USERNAME" />
-        <input type="password" class="auth-input" placeholder="PASSWORD" />
-      </div>
-      <button class="landing-button" onclick="showPage('home')">LOGIN</button>
+  <!-- ===================== -->
+  <!-- Login Page (Hidden Nav) -->
+  <!-- ===================== -->
+  <div id="login" class="page">
+    <button class="back-button" onclick="goBack()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <img src="images/logo.png" class="main-logo" alt="DRYFT logo" />
+    <h1 class="header">LOG IN</h1>
+    <div class="form-group">
+      <input type="text" class="auth-input" placeholder="EMAIL" />
+      <input type="password" class="auth-input" placeholder="PASSWORD" />
     </div>
+    <button class="landing-button" onclick="loginUser()">LOGIN</button>
+  </div>
 
     <!-- ===================== -->
     <!-- Signup Page (Hidden Nav) -->
@@ -72,7 +72,7 @@
         <input type="text" class="auth-input" placeholder="USERNAME" />
         <input type="password" class="auth-input" placeholder="PASSWORD" />
       </div>
-      <button class="landing-button" onclick="showPage('home')">SIGN UP</button>
+      <button class="landing-button" onclick="registerUser()">SIGN UP</button>
     </div>
 
     <!-- ===================== -->

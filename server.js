@@ -58,7 +58,9 @@ app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.post('/api/auth/register', async (req, res) => {
   try {
-    const { name, email, password, preferences } = req.body;
+    let { name, email, password, preferences } = req.body;
+    // Normalize the email before storing it
+    email = email.toLowerCase().trim();
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ name, email, password: hashedPassword, preferences });
     await user.save();
@@ -70,7 +72,8 @@ app.post('/api/auth/register', async (req, res) => {
 
 app.post('/api/auth/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+    email = email.toLowerCase().trim();
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ error: "User not found" });
 
