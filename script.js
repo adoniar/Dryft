@@ -53,6 +53,9 @@ function goBack() {
     case "scanToken":
       previousPage = "tokens";
       break;
+    case "redemption":
+      previousPage = "scanToken";
+      break;
   }
   showPage(previousPage);
 }
@@ -101,9 +104,7 @@ function submitContactForm() {
   const subject = document.querySelector(
     '#contactUs input[placeholder="Subject"]'
   ).value;
-  const message = document.querySelector(
-    "#contactUs .message-input"
-  ).value;
+  const message = document.querySelector("#contactUs .message-input").value;
 
   if (!fullName || !email || !subject || !message) {
     alert("Please fill out all fields.");
@@ -114,15 +115,12 @@ function submitContactForm() {
   alert("Thank you for contacting us! We will get back to you soon.");
 
   // Clear the form
-  document.querySelector(
-    '#contactUs input[placeholder="Full Name"]'
-  ).value = "";
+  document.querySelector('#contactUs input[placeholder="Full Name"]').value =
+    "";
   document.querySelector(
     '#contactUs input[placeholder="Email Address"]'
   ).value = "";
-  document.querySelector(
-    '#contactUs input[placeholder="Subject"]'
-  ).value = "";
+  document.querySelector('#contactUs input[placeholder="Subject"]').value = "";
   document.querySelector("#contactUs .message-input").value = "";
 
   showPage("home");
