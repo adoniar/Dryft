@@ -2,7 +2,7 @@
 const redemptionTokens = [
   {
     code: "DRYFT1",
-    name: "National Park Token",
+    name: "Blossom Park Token",
     redeemImage: "images/NATPARK.gif",
   },
   {
@@ -51,7 +51,7 @@ redeemButton.addEventListener("click", function () {
 
 // Add to collection button click handler
 addToCollectionButton.addEventListener("click", function () {
-  alert(`You have added ${tokenName.textContent} to your collection!`);
+  alert(`You have added the ${tokenName.textContent} to your collection!`);
 });
 
 // Show a given page by ID, hide others

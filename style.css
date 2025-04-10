@@ -1359,7 +1359,7 @@ body {
     display: inline-block;
     margin-bottom: 20px;
     font-size: 18px;
-    color: #007bff;
+    color: #648268;
     text-decoration: none;
   }
   
@@ -1372,7 +1372,7 @@ body {
   
   /* Form container */
   .redemption-form {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
   
   /* Input field for redemption code */
@@ -1416,8 +1416,8 @@ body {
   
   /* Token image */
   #token-image {
-    max-width: 150px;
-    max-height: 150px;
+    width: 400px;
+    height: auto;
     margin-bottom: 20px;
   }
   
