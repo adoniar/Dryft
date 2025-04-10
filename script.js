@@ -3,17 +3,17 @@ const redemptionTokens = [
   {
     code: "DRYFT1",
     name: "Blossom Park Token",
-    redeemImage: "images/NATPARK.gif",
+    redeemImage: "images/FIXEDParkgif.gif",
   },
   {
     code: "DRYFT2",
     name: "Sushi Haven Token",
-    redeemImage: "images/SUSHITOKENGIF.gif",
+    redeemImage: "images/FIXEDSushigif.gif",
   },
   {
     code: "DRYFT3",
-    name: "Pizza Planet Token",
-    redeemImage: "images/token3.png",
+    name: "Morning Roast Token",
+    redeemImage: "images/FIXEDCoffeegif.gif",
   },
 ];
 

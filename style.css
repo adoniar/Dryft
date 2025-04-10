@@ -1071,13 +1071,16 @@ body {
     height: 230px;
     object-fit: cover;
     border: none;
+    display: block;
+    margin: 0 auto;
+    
+    
 }
 
 .selected-token .token-name {
     font-size: 32px;
     color: black;
     font-family: 'Bungee', cursive;
-    margin-top: 10px;
 }
 
 /* Star User Section */
