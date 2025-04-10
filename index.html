@@ -39,21 +39,21 @@
       </div>
     </div>
 
-  <!-- ===================== -->
-  <!-- Login Page (Hidden Nav) -->
-  <!-- ===================== -->
-  <div id="login" class="page">
-    <button class="back-button" onclick="goBack()">
-      <i class="fas fa-arrow-left"></i>
-    </button>
-    <img src="images/logo.png" class="main-logo" alt="DRYFT logo" />
-    <h1 class="header">LOG IN</h1>
-    <div class="form-group">
-      <input type="text" class="auth-input" placeholder="EMAIL" />
-      <input type="password" class="auth-input" placeholder="PASSWORD" />
+    <!-- ===================== -->
+    <!-- Login Page (Hidden Nav) -->
+    <!-- ===================== -->
+    <div id="login" class="page">
+      <button class="back-button" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <img src="images/logo.png" class="main-logo" alt="DRYFT logo" />
+      <h1 class="header">LOG IN</h1>
+      <div class="form-group">
+        <input type="text" class="auth-input" placeholder="EMAIL" />
+        <input type="password" class="auth-input" placeholder="PASSWORD" />
+      </div>
+      <button class="landing-button" onclick="loginUser()">LOGIN</button>
     </div>
-    <button class="landing-button" onclick="loginUser()">LOGIN</button>
-  </div>
 
     <!-- ===================== -->
     <!-- Signup Page (Hidden Nav) -->
@@ -549,19 +549,19 @@
           class="auth-input"
           placeholder="Enter your code here"
         />
-        <button class="landing-button" onclick="redeemCode()">Redeem</button>
+        <button class="landing-button" id="redeem-button">Redeem</button>
         <p class="redemption-message" id="redemption-message"></p>
       </div>
-    </div>
 
-        <!-- Token Info Display -->
-    <div id="token-info" style="display: none;">
-      <h3>Your Redeemed Token:</h3>
-      <img id="token-image" src="" alt="Token Image" />
-      <p id="token-name"></p>
+      <!-- Token Info Display -->
+      <div id="token-info" style="display: none">
+        <h3>Your Redeemed Token:</h3>
+        <img id="token-image" src="" alt="Token Image" />
+        <p id="token-name"></p>
+        <p id="token-description"></p>
+        <button id="addToCollectionButton">Add to Collection</button>
+      </div>
     </div>
-  </div>
-</div>
 
     <!-- ===================== -->
     <!-- Star of the Week Page (Nav Visible) -->
