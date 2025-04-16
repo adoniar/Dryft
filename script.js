@@ -5,14 +5,6 @@ function showPage(pageId) {
       page.classList.remove('active-page');
   });
 
-  // Hide nav bar if necessary
-  const navBar = document.querySelector('.nav-bar');
-  if (['landing', 'signup', 'login'].includes(pageId)) {
-      navBar.style.display = 'none';
-  } else {
-      navBar.style.display = 'block';
-  }
-
   // Show requested page
   document.getElementById(pageId).classList.add('active-page');
 }
