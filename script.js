@@ -151,41 +151,41 @@ function toggleLike(button) {
   }
 }
 
-// Authentication Functions
-// Login User: Collects credentials, sends them to the server, and handles response.
-async function loginUser() {
-  // Grab login inputs from the #login page.
-  const inputs = document.querySelectorAll("#login .auth-input");
-  const email = inputs[0] ? inputs[0].value : "";
-  const password = inputs[1] ? inputs[1].value : "";
+// // Authentication Functions
+// // Login User: Collects credentials, sends them to the server, and handles response.
+// async function loginUser() {
+//   // Grab login inputs from the #login page.
+//   const inputs = document.querySelectorAll("#login .auth-input");
+//   const email = inputs[0] ? inputs[0].value : "";
+//   const password = inputs[1] ? inputs[1].value : "";
 
-  console.log("Attempting login with:", email, password);
+//   console.log("Attempting login with:", email, password);
 
-  if (!email || !password) {
-    alert("Please enter both your username (email) and password.");
-    return;
-  }
+//   if (!email || !password) {
+//     alert("Please enter both your username (email) and password.");
+//     return;
+//   }
 
-  try {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      // Save token to localStorage for future requests.
-      localStorage.setItem("token", data.token);
-      alert("Login successful!");
-      showPage("home");
-    } else {
-      alert(data.error || "Login failed.");
-    }
-  } catch (error) {
-    console.error("Login error:", error);
-    alert("An error occurred during login.");
-  }
-}
+//   try {
+//     const res = await fetch("/api/auth/login", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ email, password }),
+//     });
+//     const data = await res.json();
+//     if (res.ok) {
+//       // Save token to localStorage for future requests.
+//       localStorage.setItem("token", data.token);
+//       alert("Login successful!");
+//       showPage("home");
+//     } else {
+//       alert(data.error || "Login failed.");
+//     }
+//   } catch (error) {
+//     console.error("Login error:", error);
+//     alert("An error occurred during login.");
+//   }
+// }
 
 // // Register User: Collects new user details and sends them to the server.
 // async function registerUser() {
