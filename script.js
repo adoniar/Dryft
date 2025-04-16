@@ -60,7 +60,7 @@ document.querySelectorAll('.account-button').forEach(button => {
   });
 });
 
-// Add to your existing script.js
+// script.js like button
 function toggleLike(button) {
   const heartIcon = button.querySelector('i');
   const likeCount = button.querySelector('.like-count');
@@ -92,64 +92,46 @@ function logOut() {
   showPage('landing'); // Redirect to the landing page
 }
 
-// Function to handle contact form submission
-function submitContactForm() {
-  const fullName = document.querySelector(
-    '#contactUs input[placeholder="Full Name"]'
-  ).value;
-  const email = document.querySelector(
-    '#contactUs input[placeholder="Email Address"]'
-  ).value;
-  const subject = document.querySelector(
-    '#contactUs input[placeholder="Subject"]'
-  ).value;
-  const message = document.querySelector(
-    "#contactUs .message-input"
-  ).value;
+// // Function to handle contact form submission
+// function submitContactForm() {
+//   const fullName = document.querySelector(
+//     '#contactUs input[placeholder="Full Name"]'
+//   ).value;
+//   const email = document.querySelector(
+//     '#contactUs input[placeholder="Email Address"]'
+//   ).value;
+//   const subject = document.querySelector(
+//     '#contactUs input[placeholder="Subject"]'
+//   ).value;
+//   const message = document.querySelector(
+//     "#contactUs .message-input"
+//   ).value;
 
-  // Validate form fields
-  if (!fullName || !email || !subject || !message) {
-      alert("Please fill out all fields.");
-      return;
-  }
+//   // Validate form fields
+//   if (!fullName || !email || !subject || !message) {
+//       alert("Please fill out all fields.");
+//       return;
+//   }
 
-  // Simulate form submission (replace with actual backend logic)
-  console.log("Form Submitted:", { fullName, email, subject, message });
-  alert("Thank you for contacting us! We will get back to you soon.");
+//   // Simulate form submission (replace with actual backend logic)
+//   console.log("Form Submitted:", { fullName, email, subject, message });
+//   alert("Thank you for contacting us! We will get back to you soon.");
 
-  // Clear the form
-  document.querySelector(
-    '#contactUs input[placeholder="Full Name"]'
-  ).value = "";
-  document.querySelector(
-    '#contactUs input[placeholder="Email Address"]'
-  ).value = "";
-  document.querySelector(
-    '#contactUs input[placeholder="Subject"]'
-  ).value = "";
-  document.querySelector("#contactUs .message-input").value = "";
+//   // Clear the form
+//   document.querySelector(
+//     '#contactUs input[placeholder="Full Name"]'
+//   ).value = "";
+//   document.querySelector(
+//     '#contactUs input[placeholder="Email Address"]'
+//   ).value = "";
+//   document.querySelector(
+//     '#contactUs input[placeholder="Subject"]'
+//   ).value = "";
+//   document.querySelector("#contactUs .message-input").value = "";
 
-  // Optionally, redirect to another page
-  showPage('home');
-}
-
-// Function to toggle like button
-function toggleLike(button) {
-  const heartIcon = button.querySelector('i');
-  const likeCount = button.querySelector('.like-count');
-
-  if (heartIcon.classList.contains('far')) {
-      heartIcon.classList.remove('far');
-      heartIcon.classList.add('fas');
-      likeCount.textContent = parseInt(likeCount.textContent) + 1;
-      button.classList.add('liked');
-  } else {
-      heartIcon.classList.remove('fas');
-      heartIcon.classList.add('far');
-      likeCount.textContent = parseInt(likeCount.textContent) - 1;
-      button.classList.remove('liked');
-  }
-}
+//   // Optionally, redirect to another page
+//   showPage('home');
+// }
 
 // // Authentication Functions
 // // Login User: Collects credentials, sends them to the server, and handles response.
