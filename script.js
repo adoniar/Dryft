@@ -143,39 +143,118 @@ function submitContactForm() {
     showPage("profile");
   }
 
-  function submitContactForm() {
-    // Grab values from all input fields
-    const fullName = document.querySelector('#contactUs input[placeholder="Full Name"]').value.trim();
-    const email = document.querySelector('#contactUs input[placeholder="Email Address"]').value.trim();
-    const subject = document.querySelector('#contactUs input[placeholder="Subject"]').value.trim();
-    const message = document.querySelector('#contactUs .message-input').value.trim();
+// // Function to handle contact form submission
+// function submitContactForm() {
+//   const fullName = document.querySelector(
+//     '#contactUs input[placeholder="Full Name"]'
+//   ).value;
+//   const email = document.querySelector(
+//     '#contactUs input[placeholder="Email Address"]'
+//   ).value;
+//   const subject = document.querySelector(
+//     '#contactUs input[placeholder="Subject"]'
+//   ).value;
+//   const message = document.querySelector(
+//     "#contactUs .message-input"
+//   ).value;
 
-    // Check if at least one field is filled
-    if (!fullName && !email && !subject && !message) {
-        // If all fields are empty, allow users to bypass submission
-        alert("You can skip filling out the form, but at least one field must be filled to submit.");
-        return;
-    }
+//   // Validate form fields
+//   if (!fullName || !email || !subject || !message) {
+//       alert("Please fill out all fields.");
+//       return;
+//   }
 
-    // Validate individual fields (if filled)
-    if ((fullName && fullName.length < 2) || 
-        (email && !email.includes('@')) || 
-        (subject && subject.length < 2) || 
-        (message && message.length < 10)) {
-        alert("Please ensure all filled fields are valid.");
-        return;
-    }
+//   // Simulate form submission (replace with actual backend logic)
+//   console.log("Form Submitted:", { fullName, email, subject, message });
+//   alert("Thank you for contacting us! We will get back to you soon.");
 
-    // Simulate form submission (replace with actual backend logic)
-    console.log("Form Submitted:", { fullName, email, subject, message });
-    alert("Thank you for contacting us! We will get back to you soon.");
+//   // Clear the form
+//   document.querySelector(
+//     '#contactUs input[placeholder="Full Name"]'
+//   ).value = "";
+//   document.querySelector(
+//     '#contactUs input[placeholder="Email Address"]'
+//   ).value = "";
+//   document.querySelector(
+//     '#contactUs input[placeholder="Subject"]'
+//   ).value = "";
+//   document.querySelector("#contactUs .message-input").value = "";
 
-    // Clear the form after submission
-    document.querySelector('#contactUs input[placeholder="Full Name"]').value = "";
-    document.querySelector('#contactUs input[placeholder="Email Address"]').value = "";
-    document.querySelector('#contactUs input[placeholder="Subject"]').value = "";
-    document.querySelector('#contactUs .message-input').value = "";
+//   // Optionally, redirect to another page
+//   showPage('home');
+// }
 
-    // Optionally, redirect to another page
-    showPage('home');
-}
+// // Authentication Functions
+// // Login User: Collects credentials, sends them to the server, and handles response.
+// async function loginUser() {
+//   // Grab login inputs from the #login page.
+//   const inputs = document.querySelectorAll("#login .auth-input");
+//   const email = inputs[0] ? inputs[0].value : "";
+//   const password = inputs[1] ? inputs[1].value : "";
+
+//   console.log("Attempting login with:", email, password);
+
+//   if (!email || !password) {
+//     alert("Please enter both your username (email) and password.");
+//     return;
+//   }
+
+//   try {
+//     const res = await fetch("/api/auth/login", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ email, password }),
+//     });
+//     const data = await res.json();
+//     if (res.ok) {
+//       // Save token to localStorage for future requests.
+//       localStorage.setItem("token", data.token);
+//       alert("Login successful!");
+//       showPage("home");
+//     } else {
+//       alert(data.error || "Login failed.");
+//     }
+//   } catch (error) {
+//     console.error("Login error:", error);
+//     alert("An error occurred during login.");
+//   }
+// }
+
+// // Register User: Collects new user details and sends them to the server.
+// async function registerUser() {
+//   // Grab signup inputs from the #signup page.
+//   // Expected order: Full Name, Email, Username, Password.
+//   const inputs = document.querySelectorAll("#signup .auth-input");
+//   const fullName = inputs[0] ? inputs[0].value : "";
+//   const email = inputs[1] ? inputs[1].value : "";
+//   // We'll ignore the third input (Username) since the server uses "name" for registration.
+//   const password = inputs[3] ? inputs[3].value : "";
+
+//   if (!fullName || !email || !password) {
+//     alert("Please fill out all required fields.");
+//     return;
+//   }
+
+//   try {
+//     const res = await fetch("/api/auth/register", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         name: fullName,
+//         email,
+//         password,
+//         preferences: "",
+//       }),
+//     });
+//     const data = await res.json();
+//     if (res.ok) {
+//       alert("Registration successful! Please log in.");
+//       showPage("login");
+//     } else {
+//       alert(data.error || "Registration failed.");
+//     }
+//   } catch (error) {
+//     console.error("Registration error:", error);
+//     alert("An error occurred during registration.");
+//   }
+// }
