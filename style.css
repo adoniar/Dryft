@@ -96,10 +96,6 @@ body {
     display: none !important; /* Force the rule to take precedence */
 }
 
-.nav-bar {
-    display: block; /* Defualt for other pages */
-}
-
 .landing-button {
     background-color: #648268;
     color: white;
