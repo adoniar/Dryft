@@ -90,14 +90,10 @@ body {
 }
 
 /* Hide Nav Bar on Landing, Signup, and Login Pages */
-.active-page #landing .nav-bar,
-.active-page #signup .nav-bar,
-.active-page #login .nav-bar {
-    display: none !important;
-}
-
-.nav-bar {
-    display: block; /* Default for other pages */
+#landing .nav-bar,
+#signup .nav-bar,
+#login .nav-bar {
+    display: none !important; /* Force the rule to take precedence */
 }
 
 .landing-button {

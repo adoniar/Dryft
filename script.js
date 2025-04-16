@@ -1,18 +1,20 @@
 // Show a given page by ID, hide others
 function showPage(pageId) {
   // Hide all pages
-  document.querySelectorAll('.page').forEach(page => {
-      page.classList.remove('active-page');
+  document.querySelectorAll(".page").forEach((page) => {
+    page.classList.remove("active-page");
   });
+  // Show the requested page
+  document.getElementById(pageId).classList.add("active-page");
 
-  // Show requested page
-  document.getElementById(pageId).classList.add('active-page');
+  // Hide or show the nav bar based on page
+  const navBar = document.getElementById("globalNavBar");
+  if (pageId === "landing" || pageId === "login" || pageId === "signup") {
+    navBar.style.display = "none";
+  } else {
+    navBar.style.display = "flex";
+  }
 }
-
-// Initialize with landing page
-document.addEventListener('DOMContentLoaded', () => {
-  showPage('landing');
-});
 
 // Function to go back to the previous page
 function goBack() {
