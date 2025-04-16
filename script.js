@@ -16,6 +16,11 @@ function showPage(pageId) {
   }
 }
 
+// Initialize with landing page
+document.addEventListener("DOMContentLoaded", () => {
+  showPage("landing");
+});
+
 // Function to go back to the previous page
 function goBack() {
   const pages = ['landing', 'login', 'signup', 'home', 'feed', 'map', 'profile', 'tokens'];
@@ -83,6 +88,60 @@ function toggleLike(button) {
 function logOut() {
   showPage('landing'); // Redirect to the landing page
 }
+
+// Submit Contact Form
+function submitContactForm() {
+  const fullName = document.querySelector(
+    '#contactUs input[placeholder="Full Name"]'
+  ).value;
+  const email = document.querySelector(
+    '#contactUs input[placeholder="Email Address"]'
+  ).value;
+  const subject = document.querySelector(
+    '#contactUs input[placeholder="Subject"]'
+  ).value;
+  const message = document.querySelector(
+    "#contactUs .message-input"
+  ).value;
+
+  if (!fullName || !email || !subject || !message) {
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  console.log("Form Submitted:", { fullName, email, subject, message });
+  alert("Thank you for contacting us! We will get back to you soon.");
+
+  // Clear the form
+  document.querySelector(
+    '#contactUs input[placeholder="Full Name"]'
+  ).value = "";
+  document.querySelector(
+    '#contactUs input[placeholder="Email Address"]'
+  ).value = "";
+  document.querySelector(
+    '#contactUs input[placeholder="Subject"]'
+  ).value = "";
+    document.querySelector("#contactUs .message-input").value = "";
+
+    showPage("home");
+  }
+
+  // Toggle Follow button text
+  function toggleFollow() {
+    const btn = document.getElementById("follow-button");
+    if (btn.innerText === "Follow") {
+      btn.innerText = "Unfollow";
+    } else {
+      btn.innerText = "Follow";
+    }
+  }
+
+  // Save Edit Profile changes (placeholder)
+  function saveProfileChanges() {
+    alert("Profile changes saved!");
+    showPage("profile");
+  }
 
 // // Function to handle contact form submission
 // function submitContactForm() {
