@@ -187,41 +187,41 @@ async function loginUser() {
   }
 }
 
-// Register User: Collects new user details and sends them to the server.
-async function registerUser() {
-  // Grab signup inputs from the #signup page.
-  // Expected order: Full Name, Email, Username, Password.
-  const inputs = document.querySelectorAll("#signup .auth-input");
-  const fullName = inputs[0] ? inputs[0].value : "";
-  const email = inputs[1] ? inputs[1].value : "";
-  // We'll ignore the third input (Username) since the server uses "name" for registration.
-  const password = inputs[3] ? inputs[3].value : "";
+// // Register User: Collects new user details and sends them to the server.
+// async function registerUser() {
+//   // Grab signup inputs from the #signup page.
+//   // Expected order: Full Name, Email, Username, Password.
+//   const inputs = document.querySelectorAll("#signup .auth-input");
+//   const fullName = inputs[0] ? inputs[0].value : "";
+//   const email = inputs[1] ? inputs[1].value : "";
+//   // We'll ignore the third input (Username) since the server uses "name" for registration.
+//   const password = inputs[3] ? inputs[3].value : "";
 
-  if (!fullName || !email || !password) {
-    alert("Please fill out all required fields.");
-    return;
-  }
+//   if (!fullName || !email || !password) {
+//     alert("Please fill out all required fields.");
+//     return;
+//   }
 
-  try {
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: fullName,
-        email,
-        password,
-        preferences: "",
-      }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      alert("Registration successful! Please log in.");
-      showPage("login");
-    } else {
-      alert(data.error || "Registration failed.");
-    }
-  } catch (error) {
-    console.error("Registration error:", error);
-    alert("An error occurred during registration.");
-  }
-}
+//   try {
+//     const res = await fetch("/api/auth/register", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         name: fullName,
+//         email,
+//         password,
+//         preferences: "",
+//       }),
+//     });
+//     const data = await res.json();
+//     if (res.ok) {
+//       alert("Registration successful! Please log in.");
+//       showPage("login");
+//     } else {
+//       alert(data.error || "Registration failed.");
+//     }
+//   } catch (error) {
+//     console.error("Registration error:", error);
+//     alert("An error occurred during registration.");
+//   }
+// }
