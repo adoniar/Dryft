@@ -1,3 +1,4 @@
+// Show a given page by ID, hide others
 function showPage(pageId) {
   // Hide all pages
   document.querySelectorAll('.page').forEach(page => {
@@ -21,48 +22,32 @@ function goBack() {
   // Determine the previous page based on the current page
   let previousPage = 'landing'; // Default fallback
   switch (currentPage) {
-      case 'login':
-          previousPage = 'landing';
-          break;
-      case 'signup':
-          previousPage = 'landing';
-          break;
-      case 'home':
-          previousPage = 'landing'; // Or adjust as needed
-          break;
-      case 'feed':
-          previousPage = 'home';
-          break;
-      case 'map':
-          previousPage = 'home';
-          break;
-      case 'profile':
-          previousPage = 'home';
-          break;
-      case 'tokens':
-          previousPage = 'home';
-          break;
-      case 'starOfTheWeek':
-          previousPage = 'home';
-          break;    
-      case 'settings':
-          previousPage = 'profile';
-          break; 
-      case 'editProfile':
-           previousPage = 'settings';
-          break;
-      case 'favorites':
-          previousPage = 'settings';
-          break;
-      case 'friends':
-          previousPage = 'settings';
-          break;
-      case 'contactUs':
-          previousPage = 'settings';
-          break;
-      case 'scanToken':
-          previousPage = 'tokens';
-          break;
+    case "login":
+    case "signup":
+      previousPage = "landing";
+      break;
+    case "home":
+      previousPage = "landing";
+      break;
+    case "feed":
+    case "map":
+    case "profile":
+    case "tokens":
+    case "starOfTheWeek":
+      previousPage = "home";
+      break;
+    case "settings":
+      previousPage = "profile";
+      break;
+    case "editProfile":
+    case "favorites":
+    case "friends":
+    case "contactUs":
+      previousPage = "settings";
+      break;
+    case "scanToken":
+      previousPage = "tokens";
+      break;
   }
 
   showPage(previousPage);
@@ -109,11 +94,18 @@ function logOut() {
 
 // Function to handle contact form submission
 function submitContactForm() {
-  // Get form values
-  const fullName = document.querySelector('#contactUs input[placeholder="Full Name"]').value;
-  const email = document.querySelector('#contactUs input[placeholder="Email Address"]').value;
-  const subject = document.querySelector('#contactUs input[placeholder="Subject"]').value;
-  const message = document.querySelector('#contactUs .message-input').value;
+  const fullName = document.querySelector(
+    '#contactUs input[placeholder="Full Name"]'
+  ).value;
+  const email = document.querySelector(
+    '#contactUs input[placeholder="Email Address"]'
+  ).value;
+  const subject = document.querySelector(
+    '#contactUs input[placeholder="Subject"]'
+  ).value;
+  const message = document.querySelector(
+    "#contactUs .message-input"
+  ).value;
 
   // Validate form fields
   if (!fullName || !email || !subject || !message) {
@@ -126,10 +118,16 @@ function submitContactForm() {
   alert("Thank you for contacting us! We will get back to you soon.");
 
   // Clear the form
-  document.querySelector('#contactUs input[placeholder="Full Name"]').value = "";
-  document.querySelector('#contactUs input[placeholder="Email Address"]').value = "";
-  document.querySelector('#contactUs input[placeholder="Subject"]').value = "";
-  document.querySelector('#contactUs .message-input').value = "";
+  document.querySelector(
+    '#contactUs input[placeholder="Full Name"]'
+  ).value = "";
+  document.querySelector(
+    '#contactUs input[placeholder="Email Address"]'
+  ).value = "";
+  document.querySelector(
+    '#contactUs input[placeholder="Subject"]'
+  ).value = "";
+  document.querySelector("#contactUs .message-input").value = "";
 
   // Optionally, redirect to another page
   showPage('home');
@@ -150,5 +148,80 @@ function toggleLike(button) {
       heartIcon.classList.add('far');
       likeCount.textContent = parseInt(likeCount.textContent) - 1;
       button.classList.remove('liked');
+  }
+}
+
+// Authentication Functions
+// Login User: Collects credentials, sends them to the server, and handles response.
+async function loginUser() {
+  // Grab login inputs from the #login page.
+  const inputs = document.querySelectorAll("#login .auth-input");
+  const email = inputs[0] ? inputs[0].value : "";
+  const password = inputs[1] ? inputs[1].value : "";
+
+  console.log("Attempting login with:", email, password);
+
+  if (!email || !password) {
+    alert("Please enter both your username (email) and password.");
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      // Save token to localStorage for future requests.
+      localStorage.setItem("token", data.token);
+      alert("Login successful!");
+      showPage("home");
+    } else {
+      alert(data.error || "Login failed.");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("An error occurred during login.");
+  }
+}
+
+// Register User: Collects new user details and sends them to the server.
+async function registerUser() {
+  // Grab signup inputs from the #signup page.
+  // Expected order: Full Name, Email, Username, Password.
+  const inputs = document.querySelectorAll("#signup .auth-input");
+  const fullName = inputs[0] ? inputs[0].value : "";
+  const email = inputs[1] ? inputs[1].value : "";
+  // We'll ignore the third input (Username) since the server uses "name" for registration.
+  const password = inputs[3] ? inputs[3].value : "";
+
+  if (!fullName || !email || !password) {
+    alert("Please fill out all required fields.");
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: fullName,
+        email,
+        password,
+        preferences: "",
+      }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      alert("Registration successful! Please log in.");
+      showPage("login");
+    } else {
+      alert(data.error || "Registration failed.");
+    }
+  } catch (error) {
+    console.error("Registration error:", error);
+    alert("An error occurred during registration.");
   }
 }
