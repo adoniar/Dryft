@@ -49,10 +49,10 @@
       <img src="images/logo.png" class="main-logo" alt="DRYFT logo" />
       <h1 class="header">LOG IN</h1>
       <div class="form-group">
-        <input type="text" class="auth-input" placeholder="EMAIL" />
+        <input type="text" class="auth-input" placeholder="USERNAME" />
         <input type="password" class="auth-input" placeholder="PASSWORD" />
       </div>
-      <button class="landing-button" onclick="loginUser()">LOGIN</button>
+      <button class="landing-button" onclick="showPage('home')">LOGIN</button>
     </div>
 
     <!-- ===================== -->
@@ -72,7 +72,7 @@
         <input type="text" class="auth-input" placeholder="USERNAME" />
         <input type="password" class="auth-input" placeholder="PASSWORD" />
       </div>
-      <button class="landing-button" onclick="registerUser()">SIGN UP</button>
+      <button class="landing-button" onclick="showPage('home')">SIGN UP</button>
     </div>
 
     <!-- ===================== -->
@@ -98,41 +98,42 @@
         <div class="token-scroll-container">
           <!-- Token Items -->
           <div class="token-item">
-            <img src="images/token2.png" alt="Token 2" />
-            <p>Blossom Park</p>
+            <img src="images/token1.png" alt="Token 1" />
+            <p>Record Store</p>
           </div>
           <div class="token-item">
-            <img src="images/token1.png" alt="Token 1" />
-            <p>Vinyl Vibes</p>
+            <img src="images/token2.png" alt="Token 2" />
+            <p>Camping Store</p>
           </div>
           <div class="token-item">
             <img src="images/token3.png" alt="Token 3" />
             <p>Pizza Planet</p>
           </div>
           <div class="token-item">
-            <img src="images/token5.PNG" alt="Token 5" />
-            <p>Sushi Haven</p>
+            <img src="images/token5.PNG" alt="Token 4" />
+            <p>Store</p>
           </div>
           <div class="token-item">
-            <img src="images/token6.PNG" alt="Token 6" />
-            <p>Hobby Craft</p>
+            <img src="images/token6.PNG" alt="Token 5" />
+            <p>Store</p>
           </div>
           <div class="token-item">
-            <img src="images/token7.PNG" alt="Token 7" />
-            <p>Boba World</p>
+            <img src="images/token7.PNG" alt="Token 6" />
+            <p>Store</p>
           </div>
           <div class="token-item">
-            <img src="images/token8.png" alt="Token 8" />
-            <p>Sarah's Ceramics</p>
+            <img src="images/token8.png" alt="Token 6" />
+            <p>Store</p>
           </div>
           <div class="token-item">
-            <img src="images/token9.png" alt="Token 9" />
-            <p>Green Thumbs Up</p>
+            <img src="images/token9.png" alt="Token 6" />
+            <p>Store</p>
           </div>
           <div class="token-item">
             <img src="images/Token10.png" alt="Token 10" />
-            <p>Morning Roast</p>
+            <p>Store</p>
           </div>
+          <!-- ...Add more as needed... -->
         </div>
       </div>
 
@@ -337,9 +338,7 @@
           </div>
 
           <!-- Post Button -->
-          <button class="post-button" onclick="showPage('makePost')">
-            Post
-          </button>
+          <button class="post-button">Post</button>
         </div>
       </div>
 
@@ -354,34 +353,6 @@
           <img src="images/coffee2.jpg" alt="Gallery Image 5" />
           <img src="images/sushi1.jpg" alt="Gallery Image 6" />
         </div>
-      </div>
-    </div>
-
-    <!-- ===================== -->
-    <!-- Make a Post -->
-    <!-- ===================== -->
-    <div id="makePost" class="page">
-      <button class="back-button" onclick="goBack()">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <h1 class="header">Make a Post</h1>
-
-      <div class="post-form">
-        <input
-          type="file"
-          id="postImage"
-          accept="image/*"
-          style="display: none"
-        />
-        <label for="postImage" class="landing-button">Add Photo</label>
-        <div id="postPreview" class="post-preview" style="display: none"></div>
-        <textarea
-          id="postContent"
-          class="auth-input message-input"
-          placeholder="Write your caption here..."
-        ></textarea>
-        <!-- Hide the file input and replace with a label as a button -->
-        <button class="landing-button" onclick="submitPost()">Post</button>
       </div>
     </div>
 
@@ -532,37 +503,6 @@
     </div>
 
     <!-- ===================== -->
-    <!-- Redemption Page (Nav Visible) -->
-    <!-- ===================== -->
-    <div id="redemption" class="page">
-      <button class="back-button" onclick="goBack()">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <h1 class="header">Redeem Token</h1>
-
-      <div class="redemption-form">
-        <label for="redemption-code">Enter Redemption Code:</label>
-        <input
-          type="text"
-          id="redemption-code"
-          class="auth-input"
-          placeholder="Enter your code here"
-        />
-        <button class="landing-button" id="redeem-button">Redeem</button>
-        <p class="redemption-message" id="redemption-message"></p>
-      </div>
-
-      <!-- Token Info Display -->
-      <div id="token-info" style="display: none">
-        <h3>Your Redeemed Token:</h3>
-        <img id="token-image" src="" alt="Token Image" />
-        <p id="token-name"></p>
-        <p id="token-description"></p>
-        <button id="addToCollectionButton">Add to Collection</button>
-      </div>
-    </div>
-
-    <!-- ===================== -->
     <!-- Star of the Week Page (Nav Visible) -->
     <!-- ===================== -->
     <div id="starOfTheWeek" class="page">
@@ -573,11 +513,11 @@
 
       <div class="selected-token">
         <img
-          src="images/FIXEDParkgif.gif"
+          src="images/NATPARK.gif"
           alt="Selected Token"
           class="token-image"
         />
-        <h2 class="token-name">Blossom Park Token</h2>
+        <h2 class="token-name">Vinyl Vibes Token</h2>
       </div>
 
       <div class="star-user">
@@ -809,9 +749,6 @@ SUPPORT LOCAL BUSINESSES!!!!!!</textarea
           <div class="scan-line"></div>
         </div>
       </div>
-      <button onclick="showPage('redemption')" class="landing-button">
-        Enter a redemption code
-      </button>
 
       <p class="scanning-message">Scanning...</p>
     </div>
