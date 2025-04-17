@@ -197,7 +197,7 @@ async function registerUser() {
 
   if (!fullName && !email && !password) {
     alert("All fields have been bypassed for a demo.");
-    showPage("home"); // <-- Add this here
+    showPage("home"); // Homepage will display
     return;
   }
 
