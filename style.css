@@ -1444,3 +1444,12 @@ body {
   #addToCollectionButton:hover {
     background-color: #648268;
   }
+
+  .gallery-box {
+    width: 115px;
+    height: 117px;
+    background-color: #ccc;
+    margin: 5px;
+    display: inline-block;
+    border-radius: 6px
+  }

@@ -272,91 +272,111 @@
       </div>
     </div>
 
-    <!-- ===================== -->
-    <!-- Profile Page (Nav Visible) -->
-    <!-- ===================== -->
-    <div id="profile" class="page">
-      <button class="back-button" onclick="goBack()">
-        <i class="fas fa-arrow-left"></i>
-      </button>
+  <!-- ===================== -->
+  <!-- Profile Page (Nav Visible) -->
+  <!-- ===================== -->
+  <div id="profile" class="page">
+    <button class="back-button" onclick="goBack()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
 
-      <!-- Settings Icon -->
-      <div class="settings-icon" onclick="showPage('settings')">
-        <i class="fas fa-cog"></i>
-      </div>
+    <!-- Settings Icon -->
+    <div class="settings-icon" onclick="showPage('settings')">
+      <i class="fas fa-cog"></i>
+    </div>
 
-      <div class="profile-content">
-        <!-- Left Column -->
-        <div class="left-column">
+    <div class="profile-content">
+      <!-- Left Column -->
+      <div class="left-column">
+        <!-- Profile Picture Container -->
+        <div class="profile-picture-container" onclick="document.getElementById('profile-pic-upload').click()">
           <img
-            src="images/user2.jpg"
+            id="profilePic"
+            src="images/profile.jpg"
             class="profile-pic"
             alt="Profile Picture"
           />
-          <h1 class="username">Fred</h1>
+          <span class="profile-picture-overlay"></span>
+        </div>
+        <!-- Hidden File Input for Profile Picture -->
+        <input
+          type="file"
+          id="profile-pic-upload"
+          accept="image/*"
+          style="display: none;"
+          onchange="handleProfilePicUpload(event)"
+        />
+        <!-- Username will be populated dynamically -->
+        <h2 class="username">@user</h2>
 
-          <!-- Tokens Collected -->
-          <div class="tokens-section">
-            <h2>Tokens Collected</h2>
-            <div class="tokens-count">840</div>
-          </div>
-
-          <!-- Ranking -->
-          <div class="ranking-section">
-            <h2>Ranking</h2>
-            <div class="ranking-number">#4</div>
-          </div>
+        <!-- Tokens Collected -->
+        <div class="tokens-section">
+          <h2>Tokens Collected</h2>
+          <div class="tokens-count">0</div>
         </div>
 
-        <!-- Right Column -->
-        <div class="right-column">
-          <!-- Followers and Following -->
-          <div class="stats">
-            <div class="stat">
-              <span class="stat-number" id="follower-count">1.1m</span>
-              <span class="stat-label">Followers</span>
-            </div>
-            <div class="stat">
-              <span class="stat-number">10k</span>
-              <span class="stat-label">Following</span>
-            </div>
-          </div>
-
-          <!-- Follow Button -->
-          <button
-            class="follow-button"
-            id="follow-button"
-            onclick="toggleFollow()"
-          >
-            Follow
-          </button>
-
-          <!-- Bio -->
-          <div class="bio-section">
-            <h2>Bio</h2>
-            <p>SUPPORT LOCAL BUSINESSES!!!!!!</p>
-          </div>
-
-          <!-- Post Button -->
-          <button class="post-button" onclick="showPage('makePost')">
-            Post
-          </button>
+        <!-- Ranking -->
+        <div class="ranking-section">
+          <h2>Ranking</h2>
+          <div class="ranking-number">100+</div>
         </div>
       </div>
 
-      <!-- Gallery -->
-      <div class="gallery-section">
-        <h2>Gallery</h2>
-        <div class="gallery-grid">
-          <img src="images/coffee1.jpg" alt="Gallery Image 1" />
-          <img src="images/surf1.jpg" alt="Gallery Image 2" />
-          <img src="images/italian1.jpg" alt="Gallery Image 3" />
-          <img src="images/surf3.jpg" alt="Gallery Image 4" />
-          <img src="images/coffee2.jpg" alt="Gallery Image 5" />
-          <img src="images/sushi1.jpg" alt="Gallery Image 6" />
+      <!-- Right Column -->
+      <div class="right-column">
+        <!-- Followers and Following -->
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-number" id="follower-count">0</span>
+            <span class="stat-label">Followers</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Following</span>
+          </div>
         </div>
+
+        <!-- Follow Button -->
+        <button
+          class="follow-button"
+          id="follow-button"
+          onclick="toggleFollow()"
+        >
+          Follow
+        </button>
+
+        <div class="form-group">
+          <label for="bio">Bio</label>
+          <!-- Use a contenteditable div for a dynamic, inline editing experience -->
+          <div
+            id="bio"
+            class="auth-input message-input"
+            contenteditable="true"
+            style="border: 1px solid #ccc; padding: 8px; min-height: 80px;"
+          >Tell Us About Yourself!</div>
+        </div>
+
+        <!-- Post Button -->
+        <button class="post-button" onclick="showPage('makePost')">
+          Post
+        </button>
       </div>
     </div>
+
+    <!-- Gallery -->
+    <div class="gallery-section">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <!-- Gray boxes as placeholders for gallery images -->
+        <div class="gallery-box"></div>
+        <div class="gallery-box"></div>
+        <div class="gallery-box"></div>
+        <div class="gallery-box"></div>
+        <div class="gallery-box"></div>
+        <div class="gallery-box"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- ===================== -->
   <!-- Make a Post -->
@@ -701,18 +721,17 @@
       <div class="edit-profile-form">
         <div class="profile-picture-upload">
           <img
-            src="images/user2.jpg"
+            src="images/profile.jpg"
             alt="Profile Picture"
             class="profile-pic"
           />
-          <label for="profile-pic-upload" class="upload-button"
-            >Change Photo</label
-          >
+          <label for="profile-pic-upload" class="upload-button">Change Photo</label>
           <input
             type="file"
             id="profile-pic-upload"
             accept="image/*"
             style="display: none"
+            onchange="handleProfilePicUpload(event)"
           />
         </div>
 
@@ -723,7 +742,19 @@
             id="full-name"
             class="auth-input"
             placeholder="Enter your full name"
-            value="Fred"
+            value=""
+            />
+          </div>
+      
+          <!-- New Username Input -->
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              class="auth-input"
+              placeholder="Enter your username"
+              value=""
           />
         </div>
 
@@ -734,7 +765,7 @@
             id="email"
             class="auth-input"
             placeholder="Enter your email"
-            value="fred@example.com"
+            value=""
           />
         </div>
 
@@ -744,8 +775,7 @@
             id="bio"
             class="auth-input message-input"
             placeholder="Tell us about yourself"
-          >
-SUPPORT LOCAL BUSINESSES!!!!!!</textarea
+          ></textarea
           >
         </div>
 

@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const Profile = require('./models/Profile');
 
 dotenv.config();
 
@@ -111,6 +112,73 @@ app.post('/api/payments', async (req, res) => {
   }
 });
 
+// GET /api/profile - Retrieve current user's profile
+app.get('/api/profile', authenticateToken, async (req, res) => {
+  try {
+    console.log("GET /api/profile hit by user:", req.user.userId);
+    const userId = req.user.userId;
+    let profile = await Profile.findOne({ userId });
+    if (!profile) {
+      console.log("Profile not found for user:", userId, "Creating default profile.");
+      profile = new Profile({
+        userId,
+        name: "",
+        username: "",
+        bio: "",
+        profilePic: "", // Empty signals that the UI should use the placeholder image
+        followers: 0,
+        following: 0
+      });
+      await profile.save();
+    }
+    res.json(profile);
+  } catch (err) {
+    console.error("Error retrieving profile:", err.message);
+    res.status(500).json({ error: 'Error retrieving profile' });
+  }
+});
+
+// PUT /api/profile - Update (or create) current user's profile
+app.put('/api/profile', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { name, bio, username, profilePic } = req.body;
+    let profile = await Profile.findOne({ userId });
+    if (!profile) {
+      profile = new Profile({ userId, name, bio, username, profilePic });
+    } else {
+      profile.name = (name !== undefined && name !== null) ? name : profile.name;
+      profile.bio = (bio !== undefined && bio !== null) ? bio : profile.bio;
+      profile.username = (username !== undefined && username !== null) ? username : profile.username;
+      profile.profilePic = (profilePic !== undefined && profilePic !== null) ? profilePic : profile.profilePic;
+    }
+    await profile.save();
+    res.json({ message: 'Profile saved successfully', profile });
+  } catch (err) {
+    console.error("Error saving profile:", err.message);
+    res.status(500).json({ error: 'Error saving profile' });
+  }
+});
+
+//Get fix 
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (!token) {
+    console.log("No token provided");
+    return res.status(401).json({ error: "No token provided" });
+  }
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      console.log("Token verification error:", err.message);
+      return res.status(403).json({ error: "Token invalid" });
+    }
+    console.log("Decoded token:", decoded);
+    req.user = decoded;
+    next();
+  });
+}
+
 // Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5011;
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));

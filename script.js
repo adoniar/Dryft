@@ -137,11 +137,58 @@ function submitContactForm() {
     }
   }
 
-  // Save Edit Profile changes (placeholder)
-  function saveProfileChanges() {
-    alert("Profile changes saved!");
-    showPage("profile");
+// Save Edit Profile changes 
+async function saveProfileChanges() {
+  const fullNameInput = document.getElementById("full-name");
+  const usernameInput = document.getElementById("username");
+  const emailInput = document.getElementById("email");
+  const bioInput = document.getElementById("bio");
+
+  if (!fullNameInput || !usernameInput || !emailInput || !bioInput) {
+    alert("Edit Profile page is not fully loaded. Please try again.");
+    return;
   }
+
+  // Log values to verify that they are read correctly
+  const name = fullNameInput.value.trim();
+  const username = usernameInput.value.trim();
+  const email = emailInput.value.trim().toLowerCase();
+  const bio = bioInput.value;  // For a textarea, .value should work fine
+
+  console.log("Saving profile changes:", { name, username, email, bio });
+
+  // Use the currently displayed profile picture (all elements with class 'profile-pic')
+  const profilePic = document.querySelector(".profile-pic").src;
+
+  const profileData = {
+    name: name,
+    username: username,
+    bio: bio,
+    profilePic: profilePic
+  };
+
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch("/api/profile", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify(profileData)
+    });
+    const data = await res.json();
+    if (res.ok) {
+      alert("Profile updated successfully!");
+      showPage("profile");
+    } else {
+      alert("Error updating profile: " + (data.error || "Unknown error"));
+    }
+  } catch (error) {
+    console.error("Error in saveProfileChanges:", error);
+    alert("Error saving changes");
+  }
+}
 
 // Authentication Functions 
 // - When all inputs are empty, an alert informs the user that the fields have been bypassed, and the function exits early without performing its main logic.
@@ -205,4 +252,124 @@ function registerUser() {
   // Simulated registration success
   alert("Registration successful! You can now log in.");
   showPage("login");
+}
+
+// Profile Functions
+
+// Load user profile data from localStorage and update the Profile and Edit Profile pages.
+async function loadUserProfile() {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch("/api/profile", {
+      method: "GET",
+      headers: { "Authorization": "Bearer " + token }
+    });
+    if (res.ok) {
+      const userProfile = await res.json();
+      // Update the profile picture in all elements with class "profile-pic"
+      const profilePicSrc = userProfile.profilePic || "images/placeholder-profile.png";
+      document.querySelectorAll(".profile-pic").forEach(img => {
+        img.src = profilePicSrc;
+      });
+      // Update the Profile page fields
+      const profilePage = document.querySelector("#profile");
+      if (profilePage) {
+        // Display the username. If no username exists, fall back to name.
+        profilePage.querySelector(".username").innerText = userProfile.username || userProfile.name || "";
+        profilePage.querySelector(".tokens-count").innerText = userProfile.followers;
+        profilePage.querySelector(".ranking-number").innerText = userProfile.following;
+        profilePage.querySelector(".profile-bio").innerText = userProfile.bio || "";
+      }
+      // Update the Edit Profile form fields
+      if (document.getElementById("full-name"))
+        document.getElementById("full-name").value = userProfile.name || "";
+      if (document.getElementById("username"))
+        document.getElementById("username").value = userProfile.username || "";
+      if (document.getElementById("email"))
+        document.getElementById("email").value = userProfile.email || "";
+      if (document.getElementById("bio"))
+          document.getElementById("bio").innerText = userProfile.bio || "";
+    } else {
+      console.error("Profile not found or error retrieving profile.");
+    }
+  } catch (err) {
+    console.error("Error loading profile:", err);
+  }
+}
+
+function handleProfilePicUpload(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const currentUserEmail = localStorage.getItem("currentUserEmail");
+      if (!currentUserEmail) return; // Make sure a user is logged in.
+
+      const profileKey = "userProfile_" + currentUserEmail;
+      let userProfile = localStorage.getItem(profileKey);
+      if (userProfile) {
+        userProfile = JSON.parse(userProfile);
+      } else {
+        // Create default profile if it somehow doesn't exist.
+        userProfile = {
+          name: "",
+          email: currentUserEmail,
+          bio: "",
+          profilePic: "",
+          followers: 0,
+          following: 0,
+        };
+      }
+      // Update the profile picture in this user's data.
+      userProfile.profilePic = e.target.result;
+      localStorage.setItem(profileKey, JSON.stringify(userProfile));
+      
+      // Update the displayed profile picture on the page.
+      document.querySelectorAll(".profile-pic").forEach(img => {
+        img.src = e.target.result;
+      });
+      
+      alert("Profile picture updated!");
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// Save updated profile data from the Edit Profile page into localStorage.
+function saveUserProfile() {
+  const currentUserEmail = localStorage.getItem("currentUserEmail");
+  if (!currentUserEmail) {
+    alert("No user is logged in!");
+    return;
+  }
+
+  const name = document.getElementById("full-name").value;
+  const email = document.getElementById("email").value;
+  const bio = document.getElementById("bio").value;
+  const profileKey = "userProfile_" + currentUserEmail;
+
+  // Retrieve existing profile to preserve profilePic, followers, and following.
+  let existingProfile = localStorage.getItem(profileKey);
+  let profilePic = "";
+  let followers = 0, following = 0;
+  if (existingProfile) {
+    const parsedProfile = JSON.parse(existingProfile);
+    profilePic = parsedProfile.profilePic || "";
+    followers = parsedProfile.followers || 0;
+    following = parsedProfile.following || 0;
+  }
+
+  const userProfile = {
+    name: name,
+    email: email,
+    bio: bio,
+    profilePic: profilePic,
+    followers: followers,
+    following: following,
+  };
+
+  localStorage.setItem(profileKey, JSON.stringify(userProfile));
+  alert("Profile saved!");
+  showPage("profile");
+  loadUserProfile();
 }
