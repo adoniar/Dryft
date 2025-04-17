@@ -153,40 +153,26 @@ function submitContactForm() {
 async function loginUser(event) {
   event?.preventDefault();
   const inputs = document.querySelectorAll("#login .auth-input");
-  const email = inputs[0]?.value.trim();
+  const username = inputs[0]?.value.trim();
   const password = inputs[1]?.value.trim();
 
-  if (!email && !password) {
+  // Demo bypass: if both fields are empty
+  if (!username && !password) {
     alert("All fields have been bypassed for a demo.");
-    showPage("home"); // <-- The hpmepage will display if all field inputs are bypassed by demo purposes
+    showPage("home");
     return;
   }
 
-  if (!email || !password) {
+  // Require both fields
+  if (!username || !password) {
     alert("Please complete all required fields.");
     return;
   }
 
-  try {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      localStorage.setItem("token", data.token);
-      alert("Welcome back!");
-      showPage("home");
-    } else {
-      alert(data.error || "Invalid email or password.");
-    }
-  } catch (error) {
-    console.error("Login error:", error);
-    alert("Unable to connect to the server. Please try again later.");
-  }
+  // Simulated login success (demo mode)
+  alert("Welcome back!");
+  localStorage.setItem("token", "demo-token"); // optional fake token
+  showPage("home");
 }
 
 //Registers users
