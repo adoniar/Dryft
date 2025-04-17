@@ -272,130 +272,144 @@
       </div>
     </div>
 
-  <!-- ===================== -->
-  <!-- Profile Page (Nav Visible) -->
-  <!-- ===================== -->
-  <div id="profile" class="page">
-    <button class="back-button" onclick="goBack()">
-      <i class="fas fa-arrow-left"></i>
-    </button>
+    <!-- ===================== -->
+    <!-- Profile Page (Nav Visible) -->
+    <!-- ===================== -->
+    <div id="profile" class="page">
+      <button class="back-button" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
 
-    <!-- Settings Icon -->
-    <div class="settings-icon" onclick="showPage('settings')">
-      <i class="fas fa-cog"></i>
+      <!-- Settings Icon -->
+      <div class="settings-icon" onclick="showPage('settings')">
+        <i class="fas fa-cog"></i>
+      </div>
+
+      <div class="profile-content">
+        <!-- Left Column -->
+        <div class="left-column">
+          <!-- Profile Picture Container -->
+          <div
+            class="profile-picture-container"
+            onclick="document.getElementById('profile-pic-upload').click()"
+          >
+            <img
+              id="profilePic"
+              src="images/profile.jpg"
+              class="profile-pic"
+              alt="Profile Picture"
+            />
+            <span class="profile-picture-overlay"></span>
+          </div>
+          <!-- Hidden File Input for Profile Picture -->
+          <input
+            type="file"
+            id="profile-pic-upload"
+            accept="image/*"
+            style="display: none"
+            onchange="handleProfilePicUpload(event)"
+          />
+          <!-- Username will be populated dynamically -->
+          <h2 class="username">@user</h2>
+
+          <!-- Tokens Collected -->
+          <div class="tokens-section">
+            <h2>Tokens Collected</h2>
+            <div class="tokens-count">0</div>
+          </div>
+
+          <!-- Ranking -->
+          <div class="ranking-section">
+            <h2>Ranking</h2>
+            <div class="ranking-number">100+</div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+          <!-- Followers and Following -->
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-number" id="follower-count">0</span>
+              <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Following</span>
+            </div>
+          </div>
+
+          <!-- Follow Button -->
+          <button
+            class="follow-button"
+            id="follow-button"
+            onclick="toggleFollow()"
+          >
+            Follow
+          </button>
+
+          <div class="form-group">
+            <label for="bio">Bio</label>
+            <!-- Use a contenteditable div for a dynamic, inline editing experience -->
+            <div
+              id="bio"
+              class="auth-input message-input"
+              contenteditable="true"
+              style="border: 1px solid #ccc; padding: 8px; min-height: 80px"
+            >
+              Tell Us About Yourself!
+            </div>
+          </div>
+
+          <!-- Post Button -->
+          <button class="post-button" onclick="showPage('makePost')">
+            Post
+          </button>
+        </div>
+      </div>
+
+      <!-- Gallery -->
+      <div class="gallery-section">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+          <!-- Gray boxes as placeholders for gallery images -->
+          <div class="gallery-box"></div>
+          <div class="gallery-box"></div>
+          <div class="gallery-box"></div>
+          <div class="gallery-box"></div>
+          <div class="gallery-box"></div>
+          <div class="gallery-box"></div>
+        </div>
+      </div>
     </div>
 
-    <div class="profile-content">
-      <!-- Left Column -->
-      <div class="left-column">
-        <!-- Profile Picture Container -->
-        <div class="profile-picture-container" onclick="document.getElementById('profile-pic-upload').click()">
-          <img
-            id="profilePic"
-            src="images/profile.jpg"
-            class="profile-pic"
-            alt="Profile Picture"
-          />
-          <span class="profile-picture-overlay"></span>
-        </div>
-        <!-- Hidden File Input for Profile Picture -->
+    <!-- ===================== -->
+    <!-- Make a Post -->
+    <!-- ===================== -->
+    <div id="makePost" class="page">
+      <button class="back-button" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <h1 class="header">Make a Post</h1>
+
+      <div class="post-form">
+        <textarea
+          id="postContent"
+          class="auth-input message-input"
+          placeholder="Write your caption here..."
+        ></textarea>
+        <!-- Hide the file input and replace with a label as a button -->
         <input
           type="file"
-          id="profile-pic-upload"
+          id="postImage"
           accept="image/*"
-          style="display: none;"
-          onchange="handleProfilePicUpload(event)"
+          style="display: none"
         />
-        <!-- Username will be populated dynamically -->
-        <h2 class="username">@user</h2>
-
-        <!-- Tokens Collected -->
-        <div class="tokens-section">
-          <h2>Tokens Collected</h2>
-          <div class="tokens-count">0</div>
-        </div>
-
-        <!-- Ranking -->
-        <div class="ranking-section">
-          <h2>Ranking</h2>
-          <div class="ranking-number">100+</div>
-        </div>
-      </div>
-
-      <!-- Right Column -->
-      <div class="right-column">
-        <!-- Followers and Following -->
-        <div class="stats">
-          <div class="stat">
-            <span class="stat-number" id="follower-count">0</span>
-            <span class="stat-label">Followers</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number">0</span>
-            <span class="stat-label">Following</span>
-          </div>
-        </div>
-
-        <!-- Follow Button -->
-        <button
-          class="follow-button"
-          id="follow-button"
-          onclick="toggleFollow()"
-        >
-          Follow
-        </button>
-
-        <div class="form-group">
-          <label for="bio">Bio</label>
-          <!-- Use a contenteditable div for a dynamic, inline editing experience -->
-          <div
-            id="bio"
-            class="auth-input message-input"
-            contenteditable="true"
-            style="border: 1px solid #ccc; padding: 8px; min-height: 80px;"
-          >Tell Us About Yourself!</div>
-        </div>
-
-        <!-- Post Button -->
-        <button class="post-button" onclick="showPage('makePost')">
-          Post
-        </button>
+        <label for="postImage" class="landing-button">Add Photo</label>
+        <div id="postPreview" class="post-preview" style="display: none"></div>
+        <button class="landing-button" onclick="submitPost()">Post</button>
       </div>
     </div>
-
-    <!-- Gallery -->
-    <div class="gallery-section">
-      <h2>Gallery</h2>
-      <div class="gallery-grid">
-        <!-- Gray boxes as placeholders for gallery images -->
-        <div class="gallery-box"></div>
-        <div class="gallery-box"></div>
-        <div class="gallery-box"></div>
-        <div class="gallery-box"></div>
-        <div class="gallery-box"></div>
-        <div class="gallery-box"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== -->
-  <!-- Make a Post -->
-  <!-- ===================== -->
-  <div id="makePost" class="page">
-    <button class="back-button" onclick="goBack()">
-      <i class="fas fa-arrow-left"></i>
-    </button>
-    <h1 class="header">Make a Post</h1>
-
-    <div class="post-form">
-      <textarea id="postContent" class="auth-input message-input" placeholder="Write your caption here..."></textarea>
-      <!-- Hide the file input and replace with a label as a button -->
-      <input type="file" id="postImage" accept="image/*" style="display: none;" />
-      <label for="postImage" class="landing-button">Add Photo</label>
-      <div id="postPreview" class="post-preview" style="display: none;"></div>
-      <button class="landing-button" onclick="submitPost()">Post</button>
-    </div>
-  </div>
 
     <!-- Business Profile Page -->
     <div id="businessProfile" class="page">
@@ -542,7 +556,38 @@
         <img src="images/token12.png" alt="Token 12" class="token-image" />
       </div>
     </div>
+    <!-- ===================== -->
+     <!-- Redemption Page (Nav Visible) -->
+     <!-- ===================== -->
+     <div id="redemption" class="page">
+      <button class="back-button" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <h1 class="header">Redeem Token</h1>
 
+      <div class="redemption-form">
+        <label for="redemption-code">Enter Redemption Code:</label>
+        <input
+          type="text"
+          id="redemption-code"
+          class="auth-input"
+          placeholder="Enter your code here"
+        />
+        <button class="landing-button" id="redeem-button">Redeem</button>
+        <p class="redemption-message" id="redemption-message"></p>
+      </div>
+    </div>
+
+<!-- Token Info Display -->
+<div id="token-info" style="display: none">
+  <h3>Your Redeemed Token:</h3>
+  <img id="token-image" src="" alt="Token Image" />
+  <p id="token-name"></p>
+  <p id="token-description"></p>
+  <button id="addToCollectionButton">Add to Collection</button>
+</div>
+  </div>
+</div>
     <!-- ===================== -->
     <!-- Star of the Week Page (Nav Visible) -->
     <!-- ===================== -->
@@ -550,8 +595,8 @@
       <button class="back-button" onclick="goBack()">
         <i class="fas fa-arrow-left"></i>
       </button>
-      
-      <h1 class="token-name"> Vinyl Vibes Token</h1>
+
+      <h1 class="token-name">Vinyl Vibes Token</h1>
 
       <div class="selected-token">
         <img
@@ -726,7 +771,9 @@
             alt="Profile Picture"
             class="profile-pic"
           />
-          <label for="profile-pic-upload" class="upload-button">Change Photo</label>
+          <label for="profile-pic-upload" class="upload-button"
+            >Change Photo</label
+          >
           <input
             type="file"
             id="profile-pic-upload"
@@ -744,18 +791,18 @@
             class="auth-input"
             placeholder="Enter your full name"
             value=""
-            />
-          </div>
-      
-          <!-- New Username Input -->
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              class="auth-input"
-              placeholder="Enter your username"
-              value=""
+          />
+        </div>
+
+        <!-- New Username Input -->
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            class="auth-input"
+            placeholder="Enter your username"
+            value=""
           />
         </div>
 
@@ -776,8 +823,7 @@
             id="bio"
             class="auth-input message-input"
             placeholder="Tell us about yourself"
-          ></textarea
-          >
+          ></textarea>
         </div>
 
         <button class="landing-button" onclick="saveProfileChanges()">
@@ -801,6 +847,9 @@
           <div class="scan-line"></div>
         </div>
       </div>
+      <button onclick="showPage('redemption')" class="landing-button">
+        Redeem a Token
+      </button>
 
       <p class="scanning-message">Scanning...</p>
     </div>
