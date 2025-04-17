@@ -150,7 +150,8 @@ function submitContactForm() {
 // This approach keeps the groups demo live
 
 // Login User: Collects credentials, sends them to the server, and handles response.
-async function loginUser() {
+async function loginUser(event) {
+  event?.preventDefault();
   const inputs = document.querySelectorAll("#login .auth-input");
   const email = inputs[0]?.value.trim();
   const password = inputs[1]?.value.trim();
