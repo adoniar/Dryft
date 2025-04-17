@@ -190,45 +190,33 @@ async function loginUser(event) {
 }
 
 //Registers users
-async function registerUser() {
+function registerUser() {
   const inputs = document.querySelectorAll("#signup .auth-input");
   const fullName = inputs[0]?.value.trim();
   const email = inputs[1]?.value.trim();
+  const username = inputs[2]?.value.trim();
   const password = inputs[3]?.value.trim();
 
-  if (!fullName && !email && !password) {
+  // Bypass demo logic
+  if (!fullName && !email && !username && !password) {
     alert("All fields have been bypassed for a demo.");
-    showPage("home"); // Homepage will display
+    showPage("home");
     return;
   }
 
-  if (!fullName || !email || !password) {
+  // Required fields check
+  if (!fullName || !email || !username || !password) {
     alert("Please complete all required fields.");
     return;
   }
 
-  try {
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: fullName,
-        email,
-        password,
-        preferences: "",
-      }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      alert("Registration successful! You can now log in.");
-      showPage("login");
-    } else {
-      alert(data.error || "Could not register. Please try again.");
-    }
-  } catch (error) {
-    console.error("Registration error:", error);
-    alert("A network error occurred. Please try again later.");
+  // Email must contain '@'
+  if (!email.includes("@")) {
+    alert("Please enter a valid email address.");
+    return;
   }
+
+  // Simulated registration success
+  alert("Registration successful! You can now log in.");
+  showPage("login");
 }
