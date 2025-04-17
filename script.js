@@ -55,6 +55,9 @@ function goBack() {
     case "scanToken":
       previousPage = "tokens";
       break;
+    case "redemption":
+      previousPage = "scanToken";
+      break; 
   }
 
   showPage(previousPage);
@@ -153,40 +156,26 @@ function submitContactForm() {
 async function loginUser(event) {
   event?.preventDefault();
   const inputs = document.querySelectorAll("#login .auth-input");
-  const email = inputs[0]?.value.trim();
+  const username = inputs[0]?.value.trim();
   const password = inputs[1]?.value.trim();
 
-  if (!email && !password) {
+  // Demo bypass: if both fields are empty
+  if (!username && !password) {
     alert("All fields have been bypassed for a demo.");
-    showPage("home"); // <-- The hpmepage will display if all field inputs are bypassed by demo purposes
+    showPage("home");
     return;
   }
 
-  if (!email || !password) {
+  // Require both fields
+  if (!username || !password) {
     alert("Please complete all required fields.");
     return;
   }
 
-  try {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      localStorage.setItem("token", data.token);
-      alert("Welcome back!");
-      showPage("home");
-    } else {
-      alert(data.error || "Invalid email or password.");
-    }
-  } catch (error) {
-    console.error("Login error:", error);
-    alert("Unable to connect to the server. Please try again later.");
-  }
+  // Simulated login success (demo mode)
+  alert("Welcome back!");
+  localStorage.setItem("token", "demo-token"); // optional fake token
+  showPage("home");
 }
 
 //Registers users
@@ -220,3 +209,59 @@ function registerUser() {
   alert("Registration successful! You can now log in.");
   showPage("login");
 }
+
+// Static list of items -Redemption page-
+const redemptionTokens = [
+  {
+    code: "DRYFT1",
+    name: "National Park Token",
+    redeemImage: "images/FIXEDParkgif.gif",
+  },
+  {
+    code: "DRYFT2",
+    name: "Sushi Haven Token",
+    redeemImage: "images/FIXEDSushigif.gif",
+  },
+  {
+    code: "DRYFT3",
+    name: "Morning Roast Token",
+    redeemImage: "images/FIXEDCoffeegif.gif",
+  },
+];
+
+// Elements for redemption
+const redeemButton = document.getElementById("redeem-button");
+const codeInput = document.getElementById("redemption-code");
+const errorMessage = document.getElementById("redemption-message");
+const tokenDetails = document.getElementById("token-info");
+const tokenName = document.getElementById("token-name");
+const tokenDescription = document.getElementById("token-description");
+const tokenImage = document.getElementById("token-image");
+const addToCollectionButton = document.getElementById("addToCollectionButton");
+
+// Handle redemption button click
+redeemButton.addEventListener("click", function () {
+  const code = codeInput.value.trim().toUpperCase();
+  const redemptionItem = redemptionTokens.find((item) => item.code === code);
+
+  if (redemptionItem) {
+    // Show token details
+    tokenName.textContent = redemptionItem.name;
+    tokenDescription.textContent = redemptionItem.description;
+    tokenImage.src = redemptionItem.redeemImage;
+    tokenDetails.style.display = "block";
+    errorMessage.textContent = ""; // Clear error message
+
+    // Hide the redemption form
+    document.querySelector(".redemption-form").style.display = "none";
+  } else {
+    // Show error message if code is not found
+    tokenDetails.style.display = "none";
+    errorMessage.textContent = "Code not found!";
+  }
+});
+
+// Add to collection button click handler
+addToCollectionButton.addEventListener("click", function () {
+  alert(`You have added ${tokenName.textContent} to your collection!`);
+});
