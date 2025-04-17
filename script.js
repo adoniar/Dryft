@@ -2,18 +2,18 @@
 const redemptionTokens = [
   {
     code: "DRYFT1",
-    name: "National Park Token",
-    redeemImage: "images/NATPARK.gif",
+    name: "Blossom Park Token",
+    redeemImage: "images/FIXEDParkgif.gif",
   },
   {
     code: "DRYFT2",
     name: "Sushi Haven Token",
-    redeemImage: "images/SUSHITOKENGIF.gif",
+    redeemImage: "images/FIXEDSushigif.gif",
   },
   {
     code: "DRYFT3",
-    name: "Pizza Planet Token",
-    redeemImage: "images/token3.png",
+    name: "Morning Roast Token",
+    redeemImage: "images/FIXEDCoffeegif.gif",
   },
 ];
 
@@ -51,7 +51,7 @@ redeemButton.addEventListener("click", function () {
 
 // Add to collection button click handler
 addToCollectionButton.addEventListener("click", function () {
-  alert(`You have added ${tokenName.textContent} to your collection!`);
+  alert(`You have added the ${tokenName.textContent} to your collection!`);
 });
 
 // Show a given page by ID, hide others
