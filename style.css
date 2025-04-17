@@ -1445,6 +1445,108 @@ body {
     background-color: #648268;
   }
 
+/* ======================== */
+ /* Redemption Page Styles  */
+ /* ======================== */
+ 
+ /* Container for the redemption page */
+ #redemption {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  /* Back button styling */
+  .back-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  /* Heading */
+  .header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Form container */
+  .redemption-form {
+    margin-bottom: 30px;
+  }
+  
+  /* Input field for redemption code */
+  #redemption-code {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  /* Redemption button */
+  .landing-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #648268;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .landing-button:hover {
+    background-color: #648268;
+  }
+  
+  /* Message after redemption */
+  .redemption-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  /* Token info display */
+  #token-info {
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Token image */
+  #token-image {
+    max-width: 150px;
+    max-height: 150px;
+    margin-bottom: 20px;
+  }
+  
+  /* Token description */
+  #token-description {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  /* Add to collection button */
+  #addToCollectionButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #648268;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #addToCollectionButton:hover {
+    background-color: #648268;
+  }
+  
+
    /* Make a Post css*/
 
   /* Make a Post Page Styling */

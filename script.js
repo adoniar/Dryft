@@ -55,6 +55,9 @@ function goBack() {
     case "scanToken":
       previousPage = "tokens";
       break;
+    case "redemption":
+      previousPage = "scanToken";
+      break; 
   }
 
   showPage(previousPage);
@@ -206,3 +209,59 @@ function registerUser() {
   alert("Registration successful! You can now log in.");
   showPage("login");
 }
+
+// Static list of items -Redemption page-
+const redemptionTokens = [
+  {
+    code: "DRYFT1",
+    name: "National Park Token",
+    redeemImage: "images/FIXEDParkgif.gif",
+  },
+  {
+    code: "DRYFT2",
+    name: "Sushi Haven Token",
+    redeemImage: "images/FIXEDSushigif.gif",
+  },
+  {
+    code: "DRYFT3",
+    name: "Morning Roast Token",
+    redeemImage: "images/FIXEDCoffeegif.gif",
+  },
+];
+
+// Elements for redemption
+const redeemButton = document.getElementById("redeem-button");
+const codeInput = document.getElementById("redemption-code");
+const errorMessage = document.getElementById("redemption-message");
+const tokenDetails = document.getElementById("token-info");
+const tokenName = document.getElementById("token-name");
+const tokenDescription = document.getElementById("token-description");
+const tokenImage = document.getElementById("token-image");
+const addToCollectionButton = document.getElementById("addToCollectionButton");
+
+// Handle redemption button click
+redeemButton.addEventListener("click", function () {
+  const code = codeInput.value.trim().toUpperCase();
+  const redemptionItem = redemptionTokens.find((item) => item.code === code);
+
+  if (redemptionItem) {
+    // Show token details
+    tokenName.textContent = redemptionItem.name;
+    tokenDescription.textContent = redemptionItem.description;
+    tokenImage.src = redemptionItem.redeemImage;
+    tokenDetails.style.display = "block";
+    errorMessage.textContent = ""; // Clear error message
+
+    // Hide the redemption form
+    document.querySelector(".redemption-form").style.display = "none";
+  } else {
+    // Show error message if code is not found
+    tokenDetails.style.display = "none";
+    errorMessage.textContent = "Code not found!";
+  }
+});
+
+// Add to collection button click handler
+addToCollectionButton.addEventListener("click", function () {
+  alert(`You have added ${tokenName.textContent} to your collection!`);
+});
