@@ -157,7 +157,8 @@ async function loginUser() {
 
   if (!email && !password) {
     alert("All fields have been bypassed for a demo.");
-    return; // Skip login logic for demonstration purposes.
+    showPage("home"); // <-- The hpmepage will display if all field inputs are bypassed by demo purposes
+    return;
   }
 
   if (!email || !password) {
@@ -196,7 +197,8 @@ async function registerUser() {
 
   if (!fullName && !email && !password) {
     alert("All fields have been bypassed for a demo.");
-    return; // Skip registration logic for demonstration purposes.
+    showPage("home"); // <-- Add this here
+    return;
   }
 
   if (!fullName || !email || !password) {
