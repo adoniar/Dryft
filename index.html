@@ -356,6 +356,26 @@
       </div>
     </div>
 
+  <!-- ===================== -->
+  <!-- Make a Post -->
+  <!-- ===================== -->
+  <div id="makePost" class="page">
+    <button class="back-button" onclick="goBack()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <h1 class="header">Make a Post</h1>
+
+    <div class="post-form">
+      <textarea id="postContent" class="auth-input message-input" placeholder="Write your caption here..."></textarea>
+      <!-- Hide the file input and replace with a label as a button -->
+      <input type="file" id="postImage" accept="image/*" style="display: none;" />
+      <label for="postImage" class="landing-button">Add Photo</label>
+      <div id="postPreview" class="post-preview" style="display: none;"></div>
+      <button class="landing-button" onclick="submitPost()">Post</button>
+    </div>
+  </div>
+  
+
     <!-- Business Profile Page -->
     <div id="businessProfile" class="page">
       <!-- Back Button -->
