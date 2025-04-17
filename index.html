@@ -338,7 +338,9 @@
           </div>
 
           <!-- Post Button -->
-          <button class="post-button">Post</button>
+          <button class="post-button" onclick="showPage('makePost')">
+            Post
+          </button>
         </div>
       </div>
 
@@ -354,6 +356,33 @@
           <img src="images/sushi1.jpg" alt="Gallery Image 6" />
         </div>
       </div>
+    </div>
+
+    <!-- ===================== -->
+    <!-- Make a Post -->
+    <!-- ===================== -->
+    <div id="makePost" class="page">
+    <button class="back-button" onclick="goBack()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <h1 class="header">Make a Post</h1>
+
+    <div class="post-form">
+      <input
+        type="file"
+        id="postImage"
+        accept="image/*"
+        style="display: none"
+      />
+      <label for="postImage" class="landing-button">Add Photo</label>
+      <div id="postPreview" class="post-preview" style="display: none"></div>
+      <textarea
+        id="postContent"
+        class="auth-input message-input"
+        placeholder="Write your caption here..."
+      ></textarea>
+      <!-- Hide the file input and replace with a label as a button -->
+      <button class="landing-button" onclick="submitPost()">Post</button>
     </div>
 
     <!-- Business Profile Page -->
@@ -503,6 +532,37 @@
     </div>
 
     <!-- ===================== -->
+    <!-- Redemption Page (Nav Visible) -->
+    <!-- ===================== -->
+    <div id="redemption" class="page">
+    <button class="back-button" onclick="goBack()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <h1 class="header">Redeem Token</h1>
+
+    <div class="redemption-form">
+      <label for="redemption-code">Enter Redemption Code:</label>
+      <input
+        type="text"
+        id="redemption-code"
+        class="auth-input"
+        placeholder="Enter your code here"
+      />
+      <button class="landing-button" id="redeem-button">Redeem</button>
+      <p class="redemption-message" id="redemption-message"></p>
+    </div>
+    </div>
+
+    <!-- Token Info Display -->
+    <div id="token-info" style="display: none">
+      <h3>Your Redeemed Token:</h3>
+      <img id="token-image" src="" alt="Token Image" />
+      <p id="token-name"></p>
+      <p id="token-description"></p>
+      <button id="addToCollectionButton">Add to Collection</button>
+    </div>
+
+    <!-- ===================== -->
     <!-- Star of the Week Page (Nav Visible) -->
     <!-- ===================== -->
     <div id="starOfTheWeek" class="page">
@@ -513,7 +573,7 @@
 
       <div class="selected-token">
         <img
-          src="images/NATPARK.gif"
+          src="images/FIXEDParkgif.gif"
           alt="Selected Token"
           class="token-image"
         />
@@ -749,6 +809,9 @@ SUPPORT LOCAL BUSINESSES!!!!!!</textarea
           <div class="scan-line"></div>
         </div>
       </div>
+      <button onclick="showPage('redemption')" class="landing-button">
+        Redeem a Token
+      </button>
 
       <p class="scanning-message">Scanning...</p>
     </div>
