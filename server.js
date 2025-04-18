@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const Profile = require('./models/Profile');
 
 dotenv.config();
 
@@ -45,6 +44,17 @@ const Payment = mongoose.model("Payment", new mongoose.Schema({
   transactionDate: Date,
   receiptUrl: String,
   createdAt: { type: Date, default: Date.now },
+}));
+
+// Add this in server.js after the other models
+const Profile = mongoose.model("Profile", new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  name: String,
+  username: String,
+  bio: String,
+  profilePic: String,
+  followers: { type: Number, default: 0 },
+  following: { type: Number, default: 0 }
 }));
 
 // Serve static files from root directory
@@ -180,5 +190,5 @@ function authenticateToken(req, res, next) {
 }
 
 // Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5011;
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));

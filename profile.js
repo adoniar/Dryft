@@ -8,7 +8,7 @@ const ProfileSchema = new mongoose.Schema({
     required: true,
   },
   name: { type: String, default: "" },
-  username: { type: String, default: "" },  // New field for username
+  username: { type: String, default: "" },
   bio: { type: String, default: "" },
   profilePic: { type: String, default: "" },
   followers: { type: Number, default: 0 },

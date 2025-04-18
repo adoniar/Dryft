@@ -55,6 +55,20 @@ addToCollectionButton.addEventListener("click", function () {
 });
 
 // Show a given page by ID, hide others
+const PROFILE_KEY_NAME = 'profile_name';
+const PROFILE_KEY_USERNAME = 'profile_username';
+const PROFILE_KEY_BIO = 'profile_bio';
+const PROFILE_KEY_PIC = 'profile_pic';
+
+function getStoredProfile() {
+  return {
+    name: localStorage.getItem(PROFILE_KEY_NAME) || '',
+    username: localStorage.getItem(PROFILE_KEY_USERNAME) || '',
+    bio: localStorage.getItem(PROFILE_KEY_BIO) || '',
+    pic: localStorage.getItem(PROFILE_KEY_PIC) || 'images/profile.jpg',
+  };
+}
+
 function showPage(pageId) {
   // Hide all pages
   document.querySelectorAll(".page").forEach((page) => {
@@ -69,6 +83,13 @@ function showPage(pageId) {
     navBar.style.display = "none";
   } else {
     navBar.style.display = "flex";
+  }
+  if (pageId === "profile") {
+    const profile = getStoredProfile();
+    document.querySelector('#profile .username').innerText =
+      profile.username ? '@' + profile.username : '@user';
+    document.querySelector('#profile #bio').innerText = profile.bio;
+    document.querySelector('#profile .profile-pic').src = profile.pic;
   }
   if (pageId === "redemption") {
     tokenDetails.style.display = "none";
@@ -211,120 +232,114 @@ function toggleFollow() {
 }
 
 // Save Edit Profile changes
-async function saveProfileChanges() {
-  const fullNameInput = document.getElementById("full-name");
-  const usernameInput = document.getElementById("username");
-  const emailInput = document.getElementById("email");
-  const bioInput = document.getElementById("bio");
+function saveProfileChanges() {
+  const name = document.getElementById('full-name').value.trim();
+  const username = document.getElementById('username').value.trim();
+  const bio = document.getElementById('edit-bio').value.trim();
+  // Persist
+  localStorage.setItem(PROFILE_KEY_NAME, name);
+  localStorage.setItem(PROFILE_KEY_USERNAME, username);
+  localStorage.setItem(PROFILE_KEY_BIO, bio);
+  alert('Profile updated!');
+  showPage('profile');
+}
 
-  if (!fullNameInput || !usernameInput || !emailInput || !bioInput) {
-    alert("Edit Profile page is not fully loaded. Please try again.");
-    return;
-  }
-
-  // Log values to verify that they are read correctly
-  const name = fullNameInput.value.trim();
-  const username = usernameInput.value.trim();
-  const email = emailInput.value.trim().toLowerCase();
-  const bio = bioInput.value; // For a textarea, .value should work fine
-
-  console.log("Saving profile changes:", { name, username, email, bio });
-
-  // Use the currently displayed profile picture (all elements with class 'profile-pic')
-  const profilePic = document.querySelector(".profile-pic").src;
-
-  const profileData = {
-    name: name,
-    username: username,
-    bio: bio,
-    profilePic: profilePic,
-  };
-
-  try {
-    const token = localStorage.getItem("token");
-    const res = await fetch("/api/profile", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(profileData),
+function handleProfilePicUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const dataUrl = e.target.result;
+    // Update every image with class "profile-pic"
+    document.querySelectorAll('.profile-pic').forEach(img => {
+      img.src = dataUrl;
     });
-    const data = await res.json();
-    if (res.ok) {
-      alert("Profile updated successfully!");
-      showPage("profile");
-    } else {
-      alert("Error updating profile: " + (data.error || "Unknown error"));
-    }
-  } catch (error) {
-    console.error("Error in saveProfileChanges:", error);
-    alert("Error saving changes");
-  }
+    // Save for next time
+    localStorage.setItem('profile_pic', dataUrl);
+  };
+  reader.readAsDataURL(file);
 }
 
 // Authentication Functions
-// - When all inputs are empty, an alert informs the user that the fields have been bypassed, and the function exits early without performing its main logic.
-// - When some but not all inputs are filled, the user is prompted to complete all fields before proceeding.
-
-// This approach keeps the groups demo live
 
 // Login User: Collects credentials, sends them to the server, and handles response.
-async function loginUser(event) {
-  event?.preventDefault();
+async function loginUser() {
+  // Grab login inputs from the #login page.
   const inputs = document.querySelectorAll("#login .auth-input");
-  const username = inputs[0]?.value.trim();
-  const password = inputs[1]?.value.trim();
+  const email = inputs[0] ? inputs[0].value.trim().toLowerCase() : "";
+  const password = inputs[1] ? inputs[1].value : "";
 
-  // Demo bypass: if both fields are empty
-  if (!username && !password) {
-    alert("All fields have been bypassed for a demo.");
-    showPage("home");
+  if (!email || !password) {
+    alert("Please enter both your email and password.");
     return;
   }
 
-  // Require both fields
-  if (!username || !password) {
-    alert("Please complete all required fields.");
-    return;
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      // Save token and current user's email to localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("currentUserEmail", email);
+      alert("Login successful!");
+      showPage("home");
+    } else {
+      alert(data.error || "Login failed.");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("An error occurred during login.");
   }
-
-  // Simulated login success (demo mode)
-  alert("Welcome back!");
-  localStorage.setItem("token", "demo-token"); // optional fake token
-  showPage("home");
 }
 
-//Registers users
-function registerUser() {
+// Register User: Collects new user details and sends them to the server.
+async function registerUser() {
+  // Grab signup inputs from the #signup page.
+  // Expected order: Full Name, EMAIL, USERNAME, PASSWORD.
   const inputs = document.querySelectorAll("#signup .auth-input");
-  const fullName = inputs[0]?.value.trim();
-  const email = inputs[1]?.value.trim();
-  const username = inputs[2]?.value.trim();
-  const password = inputs[3]?.value.trim();
+  const fullName = inputs[0] ? inputs[0].value.trim() : "";
+  const email = inputs[1] ? inputs[1].value.trim().toLowerCase() : "";
+  // We'll ignore the USERNAME field in this implementation.
+  const password = inputs[3] ? inputs[3].value : "";
 
-  // Bypass demo logic
-  if (!fullName && !email && !username && !password) {
-    alert("All fields have been bypassed for a demo.");
-    showPage("home");
+  if (!fullName || !email || !password) {
+    alert("Please fill out all required fields.");
     return;
   }
 
-  // Required fields check
-  if (!fullName || !email || !username || !password) {
-    alert("Please complete all required fields.");
-    return;
+  try {
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: fullName, email, password, preferences: "" }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      alert("Registration successful! Please log in.");
+      // Create a default profile for this user using a unique key.
+      const userProfile = {
+        name: fullName,
+        email: email,
+        bio: "",
+        profilePic: "", // Blank initially
+        followers: 0,
+        following: 0,
+      };
+      localStorage.setItem("userProfile_" + email, JSON.stringify(userProfile));
+      // Optionally, set the current user's email so that subsequent logins use this profile.
+      localStorage.setItem("currentUserEmail", email);
+      showPage("login");
+    } else {
+      alert(data.error || "Registration failed.");
+    }
+  } catch (error) {
+    console.error("Registration error:", error);
+    alert("An error occurred during registration.");
   }
-
-  // Email must contain '@'
-  if (!email.includes("@")) {
-    alert("Please enter a valid email address.");
-    return;
-  }
-
-  // Simulated registration success
-  alert("Registration successful! You can now log in.");
-  showPage("login");
 }
 
 // Profile Functions
@@ -332,86 +347,46 @@ function registerUser() {
 // Load user profile data from localStorage and update the Profile and Edit Profile pages.
 async function loadUserProfile() {
   try {
-    const token = localStorage.getItem("token");
-    const res = await fetch("/api/profile", {
-      method: "GET",
-      headers: { Authorization: "Bearer " + token },
+    const userProfile = getStoredProfile();
+    // Update the profile picture in all elements with class "profile-pic"
+    const profilePicSrc =
+      userProfile.pic || "images/placeholder-profile.png";
+    document.querySelectorAll(".profile-pic").forEach((img) => {
+      img.src = profilePicSrc;
     });
-    if (res.ok) {
-      const userProfile = await res.json();
-      // Update the profile picture in all elements with class "profile-pic"
-      const profilePicSrc =
-        userProfile.profilePic || "images/placeholder-profile.png";
-      document.querySelectorAll(".profile-pic").forEach((img) => {
-        img.src = profilePicSrc;
-      });
-      // Update the Profile page fields
-      const profilePage = document.querySelector("#profile");
-      if (profilePage) {
-        // Display the username. If no username exists, fall back to name.
-        profilePage.querySelector(".username").innerText =
-          userProfile.username || userProfile.name || "";
-        profilePage.querySelector(".tokens-count").innerText =
-          userProfile.followers;
-        profilePage.querySelector(".ranking-number").innerText =
-          userProfile.following;
-        profilePage.querySelector(".profile-bio").innerText =
-          userProfile.bio || "";
-      }
-      // Update the Edit Profile form fields
-      if (document.getElementById("full-name"))
-        document.getElementById("full-name").value = userProfile.name || "";
-      if (document.getElementById("username"))
-        document.getElementById("username").value = userProfile.username || "";
-      if (document.getElementById("email"))
-        document.getElementById("email").value = userProfile.email || "";
-      if (document.getElementById("bio"))
-        document.getElementById("bio").innerText = userProfile.bio || "";
-    } else {
-      console.error("Profile not found or error retrieving profile.");
+    // Update the Profile page fields
+    const profilePage = document.querySelector("#profile");
+    if (profilePage) {
+      // Display the username. If no username exists, fall back to name.
+      profilePage.querySelector(".username").innerText =
+        userProfile.username || userProfile.name || "";
+      profilePage.querySelector(".tokens-count").innerText =
+        userProfile.followers;
+      profilePage.querySelector(".ranking-number").innerText =
+        userProfile.following;
+        profilePage.querySelector("#bio").innerText = 
+        userProfile.bio || "";
     }
+    // Update the Edit Profile form fields
+    if (document.getElementById("full-name"))
+      document.getElementById("full-name").value = userProfile.name || "";
+    if (document.getElementById("username"))
+      document.getElementById("username").value = userProfile.username || "";
+    if (document.getElementById("edit-bio"))
+      document.getElementById("edit-bio").value = userProfile.bio || "";
   } catch (err) {
     console.error("Error loading profile:", err);
   }
 }
 
-function handleProfilePicUpload(event) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const currentUserEmail = localStorage.getItem("currentUserEmail");
-      if (!currentUserEmail) return; // Make sure a user is logged in.
-
-      const profileKey = "userProfile_" + currentUserEmail;
-      let userProfile = localStorage.getItem(profileKey);
-      if (userProfile) {
-        userProfile = JSON.parse(userProfile);
-      } else {
-        // Create default profile if it somehow doesn't exist.
-        userProfile = {
-          name: "",
-          email: currentUserEmail,
-          bio: "",
-          profilePic: "",
-          followers: 0,
-          following: 0,
-        };
-      }
-      // Update the profile picture in this user's data.
-      userProfile.profilePic = e.target.result;
-      localStorage.setItem(profileKey, JSON.stringify(userProfile));
-
-      // Update the displayed profile picture on the page.
-      document.querySelectorAll(".profile-pic").forEach((img) => {
-        img.src = e.target.result;
-      });
-
-      alert("Profile picture updated!");
-    };
-    reader.readAsDataURL(file);
-  }
-}
+document.querySelectorAll(".account-button").forEach((button) => {
+  button.addEventListener("click", function () {
+    document
+      .querySelectorAll(".account-button")
+      .forEach((btn) => btn.classList.remove("active"));
+    this.classList.add("active");
+  });
+});
 
 // Save updated profile data from the Edit Profile page into localStorage.
 function saveUserProfile() {
@@ -423,7 +398,7 @@ function saveUserProfile() {
 
   const name = document.getElementById("full-name").value;
   const email = document.getElementById("email").value;
-  const bio = document.getElementById("bio").value;
+  const bio = document.getElementById("edit-bio").value;
   const profileKey = "userProfile_" + currentUserEmail;
 
   // Retrieve existing profile to preserve profilePic, followers, and following.
