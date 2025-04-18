@@ -190,5 +190,5 @@ function authenticateToken(req, res, next) {
 }
 
 // Start Server
-const PORT = process.env.PORT || 5011;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
