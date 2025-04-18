@@ -1,3 +1,13 @@
+// --- Post storage and rendering helpers ---
+function getStoredPosts() {
+  return JSON.parse(localStorage.getItem('posts') || '[]');
+}
+function savePosts(posts) {
+  localStorage.setItem('posts', JSON.stringify(posts));
+}
+
+
+
 // Static list of items
 const redemptionTokens = [
   {
@@ -90,12 +100,36 @@ function showPage(pageId) {
       profile.username ? '@' + profile.username : '@user';
     document.querySelector('#profile #bio').innerText = profile.bio;
     document.querySelector('#profile .profile-pic').src = profile.pic;
+
+        
+    // Populate gallery with this user's posts
+    const galleryGrid = document.querySelector('#profile .gallery-grid');
+    if (galleryGrid) {
+      galleryGrid.innerHTML = '';
+      const allPosts = getStoredPosts();
+      const userKey = profile.username || 'user';
+      const userPosts = allPosts.filter(p => p.username === userKey);
+      userPosts.forEach(post => {
+        const box = document.createElement('div');
+        box.className = 'gallery-box';
+        const imgEl = document.createElement('img');
+        imgEl.src = post.image;
+        imgEl.alt = 'Gallery Image';
+        imgEl.className = 'gallery-image';
+        galleryGrid.appendChild(imgEl);
+        box.appendChild(imgEl);
+        galleryGrid.appendChild(box);
+      });
+    }
   }
   if (pageId === "redemption") {
     tokenDetails.style.display = "none";
     errorMessage.textContent = "";
     codeInput.value = "";
     document.querySelector(".redemption-form").style.display = "block";
+  }
+  if (pageId === 'feed') {
+    renderPosts();
   }
 }
 
@@ -426,4 +460,97 @@ function saveUserProfile() {
   alert("Profile saved!");
   showPage("profile");
   loadUserProfile();
+}
+
+//Make a Post 
+function renderPosts() {
+  const feedContent = document.querySelector('#feed .feed-content');
+  if (!feedContent) return;
+  feedContent.innerHTML = '';  // clear out old
+
+  // Use current profile picture for all posts
+  const profilePicUrl = localStorage.getItem('profile_pic') || 'images/profile.jpg';
+
+  // newest first
+  getStoredPosts().forEach((post, idx) => {
+    const card = document.createElement('div');
+    card.className = 'post-card';
+    card.innerHTML = `
+      <div class="post-header">
+        <img src="${profilePicUrl}" class="user-avatar" alt="${post.username}" />
+        <span class="username">${post.username}</span>
+      </div>
+      <div class="post-image">
+        <img src="${post.image}" alt="Post Image" />
+      </div>
+      <div class="post-actions">
+        <button class="like-button" onclick="toggleLike(this)">
+          <i class="far fa-heart"></i>
+          <span class="like-count">0</span>
+        </button>
+      </div>
+      
+      <!-- Add this delete icon overlay -->
+      <button class="delete-button-overlay" onclick="deletePost(${idx})">
+        <i class="fas fa-trash"></i>
+      </button>
+      <div class="post-caption">
+        <strong>${post.username}</strong> ${post.content}
+      </div>
+    `;
+    feedContent.appendChild(card);
+  });
+}
+
+function submitPost() {
+  const content = document.getElementById('postContent').value.trim();
+  const fileInput = document.getElementById('postImage');
+  const file = fileInput.files[0];
+
+  if (!content && !file) {
+    alert('Please add a caption or image.');
+    return;
+  }
+
+  // pull username from wherever you stored it (e.g. profile_username)
+  const username = localStorage.getItem('profile_username') || 'user';
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const imageData = e.target.result;
+      const posts = getStoredPosts();
+      posts.unshift({ username, content, image: imageData });
+      savePosts(posts);
+
+      // reset form
+      document.getElementById('postContent').value = '';
+      fileInput.value = '';
+
+      // go to feed (which will call renderPosts)
+      showPage('feed');
+    };
+    reader.readAsDataURL(file);
+  } else {
+    const posts = getStoredPosts();
+    posts.unshift({ username, content, image: 'images/default-post.jpg' });
+    savePosts(posts);
+
+    document.getElementById('postContent').value = '';
+
+    showPage('feed');
+  }
+}
+
+// Delete a post by index and refresh feed/profile
+function deletePost(index) {
+  const posts = getStoredPosts();
+  posts.splice(index, 1);
+  savePosts(posts);
+  // Re-render feed
+  renderPosts();
+  // If profile page is active, update its gallery
+  if (document.getElementById('profile').classList.contains('active-page')) {
+    showPage('profile');
+  }
 }

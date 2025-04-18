@@ -1453,3 +1453,23 @@ body {
     display: inline-block;
     border-radius: 6px
   }
+
+  .post-card {
+    position: relative; /* allow children to be absolutely positioned */
+  }
+  
+  .delete-button-overlay {
+    position: absolute;
+    bottom: 8px;      /* adjust to taste */
+    right: 8px;       /* adjust to taste */
+    background: rgba(255,255,255,0.8);
+    border: none;
+    padding: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .delete-button-overlay i {
+    color: #e74c3c;   /* red trash icon */
+    font-size: 1rem;  /* adjust size */
+  }
